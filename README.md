@@ -1,3 +1,7 @@
+# AiXinGe
+
+Ai（爱）Xin（信）Ge（鸽） - 智能消息推送平台
+
 ## 技术栈
 
 - Fiber
