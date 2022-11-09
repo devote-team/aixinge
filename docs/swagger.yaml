@@ -1,0 +1,854 @@
+basePath: /
+definitions:
+  request.ChangePasswordStruct:
+    properties:
+      newPassword:
+        description: 新密码
+        type: string
+      password:
+        description: 密码
+        type: string
+      username:
+        description: 用户名
+        type: string
+    type: object
+  request.GetById:
+    properties:
+      id:
+        description: 主键ID
+        type: integer
+    type: object
+  request.IdsReq:
+    properties:
+      ids:
+        description: ID数组
+        items:
+          description: 用户ID
+          type: integer
+        type: array
+    type: object
+  request.Login:
+    properties:
+      password:
+        description: 密码
+        type: string
+      username:
+        description: 用户名
+        type: string
+    type: object
+  request.MenuParams:
+    properties:
+      name:
+        description: 菜单名称
+        type: string
+    type: object
+  request.PageInfo:
+    properties:
+      page:
+        description: 页码
+        type: integer
+      pageSize:
+        description: 每页大小
+        type: integer
+    type: object
+  request.RefreshToken:
+    properties:
+      refreshToken:
+        description: 刷新票据
+        type: string
+    type: object
+  request.RoleMenuParams:
+    properties:
+      id:
+        description: 角色ID
+        type: integer
+      menuIds:
+        description: 菜单ID集合
+        items:
+          description: 用户ID
+          type: integer
+        type: array
+    type: object
+  request.RoleUserParams:
+    properties:
+      id:
+        description: 角色ID
+        type: integer
+      userIds:
+        description: 用户ID集合
+        items:
+          description: 用户ID
+          type: integer
+        type: array
+    type: object
+  request.UserCreate:
+    properties:
+      nickName:
+        description: 用户昵称
+        type: string
+      password:
+        description: 用户登录密码
+        type: string
+      userName:
+        description: 用户登录名
+        type: string
+    type: object
+  request.UserRoleParams:
+    properties:
+      id:
+        description: 用户ID
+        type: integer
+      roleIds:
+        description: 角色ID集合
+        items:
+          description: 用户ID
+          type: integer
+        type: array
+    type: object
+  system.Menu:
+    properties:
+      component:
+        description: 对应前端文件路径
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      hidden:
+        description: 是否在列表隐藏 1，是 2，否
+        type: integer
+      icon:
+        description: 菜单图标
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isFrame:
+        description: Frame 1，是 2，否
+        type: integer
+      name:
+        description: 路由name
+        type: string
+      noCache:
+        description: 不缓存 1，是 2，否
+        type: integer
+      parentId:
+        description: 父菜单ID
+        type: integer
+      path:
+        description: 路由path
+        type: string
+      remark:
+        description: 备注
+        type: string
+      sort:
+        description: 排序标记
+        type: integer
+      status:
+        description: 状态，1、正常 2、禁用
+        type: integer
+      title:
+        description: 菜单名
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  system.Role:
+    properties:
+      alias:
+        description: 别名
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      remark:
+        description: 备注
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        description: 状态，1、正常 2、禁用
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  system.User:
+    properties:
+      avatar:
+        description: 用户头像
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      nickName:
+        description: 用户昵称
+        type: string
+      status:
+        description: 状态，1、正常 2、禁用
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userName:
+        description: 用户登录名
+        type: string
+      uuid:
+        description: 用户UUID
+        type: string
+    type: object
+info:
+  contact: {}
+  description: artificial intelligence message push service
+  title: AiXinGe API
+  version: 1.0.0
+paths:
+  /v1/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户名, 密码, 验证码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"登陆成功"}'
+          schema:
+            type: string
+      summary: 用户登录
+      tags:
+      - Base
+  /v1/menu/auth:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取当前登录用户授权菜单
+      tags:
+      - Menu
+  /v1/menu/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建菜单
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.Menu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建菜单
+      tags:
+      - Menu
+  /v1/menu/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除菜单
+      tags:
+      - Menu
+  /v1/menu/get:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 菜单ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取菜单
+      tags:
+      - Menu
+  /v1/menu/list:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 查询参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.MenuParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取菜单列表
+      tags:
+      - Menu
+  /v1/menu/list-tree:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取菜单列表树
+      tags:
+      - Menu
+  /v1/menu/page:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 页码, 每页大小
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取菜单列表
+      tags:
+      - Menu
+  /v1/menu/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 菜单信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.Menu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新菜单信息
+      tags:
+      - Menu
+  /v1/refresh-token:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 刷新票据
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.RefreshToken'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"刷新Token成功"}'
+          schema:
+            type: string
+      summary: 刷新Token
+      tags:
+      - Base
+  /v1/role/assign-menu:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID、菜单ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.RoleMenuParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 角色分配菜单
+      tags:
+      - Role
+  /v1/role/assign-user:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID、用户ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.RoleUserParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 角色分配用户
+      tags:
+      - Role
+  /v1/role/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建角色
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建角色
+      tags:
+      - Role
+  /v1/role/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除角色
+      tags:
+      - Role
+  /v1/role/get:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取角色
+      tags:
+      - Role
+  /v1/role/list:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取角色列表
+      tags:
+      - Role
+  /v1/role/page:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 页码, 每页大小
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取角色列表
+      tags:
+      - Role
+  /v1/role/selected-menus:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取角色已分配的菜单ID列表
+      tags:
+      - Role
+  /v1/role/selected-users:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取角色已分配的用户ID列表
+      tags:
+      - Role
+  /v1/role/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新角色信息
+      tags:
+      - Role
+  /v1/user/assign-role:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户ID、角色ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserRoleParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用户分配角色
+      tags:
+      - User
+  /v1/user/change-password:
+    post:
+      parameters:
+      - description: 用户名, 原密码, 新密码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ChangePasswordStruct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"修改成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用户修改密码
+      tags:
+      - User
+  /v1/user/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建User
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建用户
+      tags:
+      - User
+  /v1/user/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除用户
+      tags:
+      - User
+  /v1/user/get:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取用户
+      tags:
+      - User
+  /v1/user/list:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户列表
+      tags:
+      - User
+  /v1/user/page:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 页码, 每页大小
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取用户列表
+      tags:
+      - User
+  /v1/user/selected-roles:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取用户已分配的角色ID列表
+      tags:
+      - User
+  /v1/user/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新用户信息
+      tags:
+      - User
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: x-token
+    type: apiKey
+swagger: "2.0"

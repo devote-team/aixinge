@@ -1,0 +1,11 @@
+/.idea/
+/latest_log/
+/log/
+/bin/
+/web/dist/
+/upload/
+/dist/
+/*.db
+/*.exe
+.bin
+config.yaml
