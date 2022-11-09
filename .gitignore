@@ -1,5 +1,6 @@
 .idea/
 .vscode/
+.fleet/
 latest_log/
 log/
 bin/
