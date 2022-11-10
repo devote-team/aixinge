@@ -15,7 +15,7 @@ in One"的效果。
 ## 功能规划
 
 V1 版本功能规划：
-![](wiki/img/AiXinGe 智能消息平台功能规划V1版本.png)
+![](https://gitee.com/aixinge/aixinge/raw/master/wiki/img/Feature-V1.png)
 
 后续功能计划中（小程序消息、OA 消息、订阅号等）
 
