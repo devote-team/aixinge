@@ -1,13 +1,13 @@
 .idea/
 .vscode/
 .fleet/
-latest_log/
 log/
 bin/
 dist/
 upload/
 *.db
 *.exe
+latest_log
 .bin
 .DS_Store
 config.yaml
