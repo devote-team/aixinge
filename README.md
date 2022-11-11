@@ -25,6 +25,10 @@ V1 版本功能规划：
 - 数据库默认 `MySQL` 导入 `wiki/sql` 脚本
 - 编译打包前端 [aixinge-ui](https://gitee.com/aixinge/aixinge-ui) 编译文件 `dist` 放到 `web` 目录下（不想打包前端可以创建 `web/dist/index.html` 目录及文件）
 
+[GoLang 1.19+ 点击下载](https://studygolang.com/dl)
+
+[开发工具GoLand下载](https://www.jetbrains.com.cn/go/)
+
 ## 技术栈
 
 - Fiber
