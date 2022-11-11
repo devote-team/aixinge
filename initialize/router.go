@@ -49,15 +49,18 @@ func Routers() *fiber.App {
 	// 获取路由组实例
 	systemRouter := router.AppRouter.System
 
-	// 注入免鉴权路由
+	// 获取context-path
 	prefix := global.CONFIG.System.ContextPath
 	if prefix == "" {
-		fmt.Printf("您使用的context path为默认值,路径为 / \n")
+		fmt.Printf("context-path为默认值,路径为/ \n")
 		prefix = "/"
 	} else {
-		fmt.Printf("您使用的context path为 %v \n", prefix)
+		fmt.Printf("context-path为%v \n", prefix)
 	}
 
+	prefix = prefix + "v1"
+
+	// 注入免鉴权路由
 	publicGroup := app.Group(prefix)
 	{
 		systemRouter.InitBaseRouter(publicGroup) // 注册
