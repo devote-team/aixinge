@@ -19,7 +19,9 @@ V1 版本功能规划：
 
 后续功能计划中（小程序消息、OA 消息、订阅号等）
 
-# 快速开始
+欢迎大家踊跃参与贡献，相关贡献手册见：[贡献指南](CONTRIBUTION.md)
+
+## 快速开始
 
 - 配置，拷贝 `config-sample.yaml` 文件为 `config.yaml` 修改数据配置信息
 - 数据库默认 `MySQL` 导入 `wiki/sql` 脚本
@@ -46,7 +48,7 @@ go get -u all
 go mod tidy
 ```
 
-# 文档更新
+## 文档更新
 
 ```
 swag init
@@ -55,7 +57,7 @@ swag init
 > 用户名 `admin` 密码 `123456`
 http://127.0.0.1:8888/swagger/index.html
 
-# 打包
+## 打包
 
 > 交叉编译打包命令
 
