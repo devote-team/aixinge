@@ -19,6 +19,12 @@ V1 版本功能规划：
 
 后续功能计划中（小程序消息、OA 消息、订阅号等）
 
+# 快速开始
+
+- 配置，拷贝 `config-sample.yaml` 文件为 `config.yaml` 修改数据配置信息
+- 数据库默认 `MySQL` 导入 `wiki/sql` 脚本
+- 编译打包前端 [aixinge-ui](https://gitee.com/aixinge/aixinge-ui) 编译文件 `dist` 放到 `web` 目录下（不想打包前端可以创建 `web/dist/index.html` 目录及文件）
+
 ## 技术栈
 
 - Fiber
@@ -52,3 +58,5 @@ http://127.0.0.1:8888/swagger/index.html
 ```
 goreleaser --snapshot --skip-publish --rm-dist
 ```
+
+
