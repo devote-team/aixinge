@@ -49,13 +49,14 @@ func Routers() *fiber.App {
 	systemRouter := router.AppRouter.System
 
 	// 注入免鉴权路由
-	publicGroup := app.Group("/v1/")
+	prefix := global.CONFIG.System.ContextPath
+	publicGroup := app.Group(prefix)
 	{
 		systemRouter.InitBaseRouter(publicGroup) // 注册
 	}
 
 	// 注入鉴权路由
-	privateGroup := app.Group("/v1/")
+	privateGroup := app.Group(prefix)
 	privateGroup.Use(middleware.JWTAuth()).Use(middleware.RbacHandler())
 	{
 		/**  系统管理  */
