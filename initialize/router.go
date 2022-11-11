@@ -6,6 +6,7 @@ import (
 	"aixinge/global"
 	"aixinge/middleware"
 	"aixinge/web"
+	"fmt"
 	swagger "github.com/arsmn/fiber-swagger/v2"
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
@@ -50,6 +51,13 @@ func Routers() *fiber.App {
 
 	// 注入免鉴权路由
 	prefix := global.CONFIG.System.ContextPath
+	if prefix == "" {
+		fmt.Printf("您使用的context path为默认值,路径为 / \n")
+		prefix = "/"
+	} else {
+		fmt.Printf("您使用的context path为 %v \n", prefix)
+	}
+
 	publicGroup := app.Group(prefix)
 	{
 		systemRouter.InitBaseRouter(publicGroup) // 注册

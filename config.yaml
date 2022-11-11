@@ -4,11 +4,11 @@ system:
   db-type: mysql
 # database connection info need to update
 database:
-  path: 192.168.0.1:3306
+  path: 10.51.50.181:3306
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: axg
   username: root
-  password: "axg123456"
+  password: "Admin@123"
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: "error"
