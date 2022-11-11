@@ -34,9 +34,14 @@ func Viper(path ...string) *viper.Viper {
 	v := viper.New()
 	v.SetConfigFile(config)
 	v.SetConfigType("yaml")
-	err := v.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			//配置文件没有找到
+			panic(fmt.Errorf("the config file does not exist: %s \n", err))
+		} else {
+			// 配置文件找到了,但是在这个过程有又出现别的什么error
+			panic(fmt.Errorf("Fatal error config file: %s \n", err))
+		}
 	}
 	v.WatchConfig()
 
