@@ -6,6 +6,7 @@ import (
 	"aixinge/global"
 	"aixinge/middleware"
 	"aixinge/web"
+	"fmt"
 	swagger "github.com/arsmn/fiber-swagger/v2"
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
@@ -48,14 +49,25 @@ func Routers() *fiber.App {
 	// 获取路由组实例
 	systemRouter := router.AppRouter.System
 
+	// 获取context-path
+	prefix := global.CONFIG.System.ContextPath
+	if prefix == "" {
+		fmt.Printf("context-path为默认值,路径为/ \n")
+		prefix = "/"
+	} else {
+		fmt.Printf("context-path为%v \n", prefix)
+	}
+
+	prefix = prefix + "v1"
+
 	// 注入免鉴权路由
-	publicGroup := app.Group("/v1/")
+	publicGroup := app.Group(prefix)
 	{
 		systemRouter.InitBaseRouter(publicGroup) // 注册
 	}
 
 	// 注入鉴权路由
-	privateGroup := app.Group("/v1/")
+	privateGroup := app.Group(prefix)
 	privateGroup.Use(middleware.JWTAuth()).Use(middleware.RbacHandler())
 	{
 		/**  系统管理  */
