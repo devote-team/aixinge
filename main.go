@@ -14,7 +14,7 @@ import (
 
 // @title AiXinGe API
 // @version 1.0.0
-// @description artificial intelligence message push service
+// @description artificial intelligence msg push service
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header
 // @name x-token

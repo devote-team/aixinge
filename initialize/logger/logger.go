@@ -94,7 +94,7 @@ func (c *_logger) Error(_ context.Context, message string, data ...interface{}) 
 	}
 }
 
-// Trace print sql message
+// Trace print sql msg
 func (c *_logger) Trace(_ context.Context, begin time.Time, fc func() (string, int64), err error) {
 	if c.LogLevel > 0 {
 		elapsed := time.Since(begin)

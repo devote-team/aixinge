@@ -6,7 +6,6 @@ type UserCreate struct {
 	Username string `json:"userName"` // 用户登录名
 	Password string `json:"password"` // 用户登录密码
 	NickName string `json:"nickName"` // 用户昵称
-
 }
 
 type Login struct {
@@ -28,5 +27,4 @@ type ChangePasswordStruct struct {
 type UserRoleParams struct {
 	ID      snowflake.ID   `json:"id,omitempty"` // 用户ID
 	RoleIds []snowflake.ID `json:"roleIds"`      // 角色ID集合
-
 }

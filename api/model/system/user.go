@@ -14,11 +14,9 @@ type User struct {
 	NickName string    `json:"nickName"` // 用户昵称
 	Avatar   string    `json:"avatar"`   // 用户头像
 	Status   int       `json:"status"`   // 状态，1、正常 2、禁用
-
 }
 
 type UserRoles struct {
 	UserId snowflake.ID `json:"userId"` // 用户ID
 	RoleId snowflake.ID `json:"roleId"` // 角色ID
-
 }

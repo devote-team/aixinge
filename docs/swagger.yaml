@@ -209,7 +209,7 @@ definitions:
     type: object
 info:
   contact: {}
-  description: artificial intelligence message push service
+  description: artificial intelligence msg push service
   title: AiXinGe API
   version: 1.0.0
 paths:
