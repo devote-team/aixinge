@@ -51,7 +51,7 @@ func Zap() (logger *zap.Logger) {
 // getEncoderConfig 获取zapcore.EncoderConfig
 func getEncoderConfig() (config zapcore.EncoderConfig) {
 	config = zapcore.EncoderConfig{
-		MessageKey:     "msg",
+		MessageKey:     "message",
 		LevelKey:       "level",
 		TimeKey:        "time",
 		NameKey:        "logger",

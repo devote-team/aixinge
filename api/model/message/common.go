@@ -1,4 +1,4 @@
-package msg
+package message
 
 // 消息类型
 const (

@@ -1370,7 +1370,7 @@ var SwaggerInfo_swagger = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "AiXinGe API",
-	Description:      "artificial intelligence msg push service",
+	Description:      "artificial intelligence message push service",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate_swagger,
 }
