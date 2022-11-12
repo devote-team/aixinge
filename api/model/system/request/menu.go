@@ -28,5 +28,4 @@ func DefaultMenu() []system.BaseMenu {
 
 type MenuParams struct {
 	Name string `json:"name"` // 菜单名称
-
 }
