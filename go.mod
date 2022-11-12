@@ -5,6 +5,8 @@ go 1.19
 require (
 	github.com/arsmn/fiber-swagger/v2 v2.31.1
 	github.com/cloudflare/tableflip v1.2.3
+	github.com/emersion/go-sasl v0.0.0-20220912192320-0145f2c60ead
+	github.com/emersion/go-smtp v0.15.0
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/goccy/go-json v0.9.11
 	github.com/gofiber/fiber/v2 v2.39.0
@@ -13,6 +15,7 @@ require (
 	github.com/satori/go.uuid v1.2.0
 	github.com/spf13/viper v1.13.0
 	github.com/stretchr/testify v1.8.1
+	github.com/swaggo/swag v1.8.7
 	go.uber.org/zap v1.23.0
 	gorm.io/driver/mysql v1.4.3
 	gorm.io/gorm v1.24.0
@@ -51,7 +54,6 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
 	github.com/swaggo/files v0.0.0-20220728132757-551d4a08d97a // indirect
-	github.com/swaggo/swag v1.8.7 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.41.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
