@@ -14,7 +14,6 @@ func TestUuid(t *testing.T) {
 	bcc := []string{"密送地址", "密送地址1"}
 
 	subject := "AiXinGe Smtp Send Test"
-	mailType := "html"
 	replyToAddress := "回信地址"
 
 	body := `
@@ -27,10 +26,10 @@ func TestUuid(t *testing.T) {
     </html>
         `
 	fmt.Println("send email")
-	err := SendMail(user, password, host, subject, body, mailType, replyToAddress, to, cc, bcc)
+	s := NewSmtp("", user, password, host)
+	err := s.SendMail(true, subject, body, replyToAddress, to, cc, bcc)
 	if err != nil {
-		fmt.Println("Send mail error!")
-		fmt.Println(err)
+		fmt.Println("Send mail error!", err)
 	} else {
 		fmt.Println("Send mail success!")
 	}
