@@ -5,8 +5,6 @@ go 1.19
 require (
 	github.com/arsmn/fiber-swagger/v2 v2.31.1
 	github.com/cloudflare/tableflip v1.2.3
-	github.com/emersion/go-sasl v0.0.0-20220912192320-0145f2c60ead
-	github.com/emersion/go-smtp v0.15.0
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/goccy/go-json v0.9.11
 	github.com/gofiber/fiber/v2 v2.39.0

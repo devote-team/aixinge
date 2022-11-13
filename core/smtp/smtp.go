@@ -1,25 +1,39 @@
 package smtp
 
 import (
-	"github.com/emersion/go-sasl"
-	"github.com/emersion/go-smtp"
+	"fmt"
+	"net/smtp"
 	"strings"
 )
 
-type Smtp struct {
-	address string
-	client  sasl.Client
+func SendMail(user, password, host, subject, content, mailType, replyToAddress string, to, cc, bcc []string) error {
+	hp := strings.Split(host, ":")
+	auth := smtp.PlainAuth("", user, password, hp[0])
+	var contentType string
+	if mailType == "html" {
+		contentType = "Content-Type: text/" + mailType + "; charset=UTF-8"
+	} else {
+		contentType = "Content-Type: text/plain" + "; charset=UTF-8"
+	}
+	toAddress := strings.Join(to, ",")
+	ccAddress := strings.Join(cc, ",")
+	bccAddress := strings.Join(bcc, ",")
+	msg := []byte("To: " + toAddress + "\r\n" +
+		"From: " + user + "\r\n" +
+		"Subject: " + subject + "\r\n" +
+		"Reply-To: " + replyToAddress + "\r\n" +
+		"Cc: " + ccAddress + "\r\n" +
+		"Bcc: " + bccAddress + "\r\n" +
+		contentType + "\r\n\r\n" +
+		content)
+	sendTo := Merge(to, cc, bcc)
+	err := smtp.SendMail(host, auth, user, sendTo, msg)
+	if err != nil {
+		fmt.Printf("send smtp mail error: %v", err)
+	}
+	return err
 }
 
-func NewSmtp(identity, address, username, password string) Smtp {
-	s := Smtp{}
-	s.address = address
-	s.client = sasl.NewPlainClient(identity, username, password)
-	return s
-}
-
-func (s Smtp) SendMail(from string, to []string, subject, content string) error {
-	return smtp.SendMail(s.address, s.client, from, to, strings.NewReader("To: "+strings.Join(to, ",")+"\r\n"+
-		"Subject: "+subject+"\r\n"+
-		"\r\n"+content+"\r\n"))
+func Merge(to []string, cc []string, bcc []string) []string {
+	return append(append(to, cc...), bcc...)
 }
