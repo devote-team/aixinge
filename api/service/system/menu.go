@@ -68,7 +68,7 @@ func (c *MenuService) List(params systemReq.MenuParams) (err error, list interfa
 func (c *MenuService) AuthList(customClaims *systemReq.TokenClaims) (err error, list interface{}) {
 	db := global.DB.Model(&system.Menu{})
 	var menuList []system.Menu
-	db.Raw("SELECT m.* FROM axg_menu m JOIN axg_role_menu r ON m.id=r.menu_id JOIN axg_user_role u ON r.role_id=u.role_id WHERE m.status=1 AND u.user_id=?",
+	db.Raw("select m.* from axg_menu m join axg_role_menu r on m.id=r.menu_id join axg_user_role u on r.role_id=u.role_id where m.status=1 and u.user_id=?",
 		customClaims.ID).Scan(&menuList)
 	return err, menuList
 }
@@ -89,10 +89,6 @@ func GetMenuTree(menuList []system.Menu, parentId snowflake.ID) (error, []*syste
 				_, child := GetMenuTree(menuList, item.ID)
 				node := &systemRes.MenuTreeResponse{
 					Menu:     item,
-					NoCache:  item.NoCache,
-					Title:    item.Title,
-					Icon:     item.Icon,
-					Remark:   item.Remark,
 					Children: child,
 				}
 				tree = append(tree, node)

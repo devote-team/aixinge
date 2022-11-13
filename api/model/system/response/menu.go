@@ -8,10 +8,6 @@ type MenuResponse struct {
 
 type MenuTreeResponse struct {
 	system.Menu
-	NoCache  int                 `json:"noCache"`            // 不缓存 1，是 2，否
-	Title    string              `json:"title"`              // 菜单名
-	Icon     string              `json:"icon"`               // 菜单图标
-	Remark   string              `json:"remark"`             // 备注
 	Children []*MenuTreeResponse `json:"children,omitempty"` // 子类
 }
 
