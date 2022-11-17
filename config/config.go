@@ -6,4 +6,6 @@ type Server struct {
 	System System `mapstructure:"system" json:"system" yaml:"system"`
 	// 数据库
 	Database Database `mapstructure:"database" json:"database" yaml:"database"`
+	// 上传文件
+	Upload Upload `mapstructure:"upload" json:"upload" yaml:"upload"`
 }

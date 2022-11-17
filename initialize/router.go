@@ -25,16 +25,6 @@ func Routers() *fiber.App {
 	global.LOG.Debug("register swagger handler")
 	app.Get("/swagger/*", swagger.HandlerDefault)
 
-	global.LOG.Debug("register filesystem handler")
-	app.Use("/", filesystem.New(filesystem.Config{
-		Root:         http.FS(web.Dist),
-		Browse:       true,
-		Index:        "index.html",
-		NotFoundFile: "404.html",
-		PathPrefix:   "/dist",
-		MaxAge:       3600,
-	}))
-
 	global.LOG.Debug("register upload file handler")
 
 	global.LOG.Debug("use middleware logger")
@@ -76,6 +66,17 @@ func Routers() *fiber.App {
 		systemRouter.InitMenuRouter(privateGroup) // 菜单
 
 	}
+
+	global.LOG.Debug("register filesystem handler")
+	app.Use("/", filesystem.New(filesystem.Config{
+		Root:         http.FS(web.Dist),
+		Browse:       true,
+		Index:        "index.html",
+		NotFoundFile: "404.html",
+		PathPrefix:   "/dist",
+		MaxAge:       3600,
+	}))
+
 	global.LOG.Debug("router register success")
 	return app
 }
