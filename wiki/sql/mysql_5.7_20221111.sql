@@ -13,6 +13,7 @@ CREATE TABLE `axg_menu`  (
   `deleted_at` datetime NULL DEFAULT NULL,
   `parent_id` bigint NOT NULL DEFAULT 1,
   `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `redirect` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `hidden` tinyint(1) NOT NULL DEFAULT 2,
   `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,

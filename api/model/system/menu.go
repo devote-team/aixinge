@@ -9,6 +9,7 @@ type BaseMenu struct {
 	global.MODEL
 	ParentId  snowflake.ID  `json:"parentId"`  // 父菜单ID
 	Path      string        `json:"path" `     // 路由path
+	Redirect  string        `json:"redirect"`  // 重定向的路由path
 	Name      string        `json:"name"`      // 路由name
 	Hidden    int           `json:"hidden"`    // 是否在列表隐藏 1，是 2，否
 	Component string        `json:"component"` // 对应前端文件路径
@@ -21,6 +22,7 @@ type Menu struct {
 	global.MODEL
 	ParentId  snowflake.ID  `json:"parentId"`  // 父菜单ID
 	Path      string        `json:"path" `     // 路由path
+	Redirect  string        `json:"redirect"`  // 重定向的路由path
 	Name      string        `json:"name"`      // 路由name
 	Hidden    int           `json:"hidden"`    // 是否在列表隐藏 1，是 2，否
 	Component string        `json:"component"` // 对应前端文件路径

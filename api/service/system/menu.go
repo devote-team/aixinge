@@ -77,7 +77,7 @@ func (c *MenuService) ListTree() (error, []*systemRes.MenuTreeResponse) {
 	db := global.DB.Model(&system.Menu{})
 	var menuList []system.Menu
 	_ = db.Order("sort DESC").Find(&menuList).Error
-	return GetMenuTree(menuList, 1)
+	return GetMenuTree(menuList, 0)
 }
 
 // GetMenuTree 递归获取树形菜单
