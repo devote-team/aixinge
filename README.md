@@ -40,7 +40,7 @@ V1 版本功能规划：
 
 ## 依赖升级
 
-```
+```shell
 go get -u github.com/gofiber/fiber/v2@latest
 
 go get -u all
@@ -50,7 +50,9 @@ go mod tidy
 
 ## 文档更新
 
-```
+```shell
+go install github.com/swaggo/swag/cmd/swag@latest
+
 swag init
 ```
 
@@ -61,7 +63,7 @@ http://127.0.0.1:8888/swagger/index.html
 
 > 交叉编译打包命令
 
-```
+```shell
 goreleaser --snapshot --skip-publish --rm-dist
 ```
 

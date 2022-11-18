@@ -38,6 +38,7 @@ func Routers() *fiber.App {
 
 	// 获取路由组实例
 	systemRouter := router.AppRouter.System
+	messageRouter := router.AppRouter.Message
 
 	// 获取context-path
 	prefix := global.CONFIG.System.ContextPath
@@ -65,6 +66,8 @@ func Routers() *fiber.App {
 		systemRouter.InitRoleRouter(privateGroup) // 角色
 		systemRouter.InitMenuRouter(privateGroup) // 菜单
 
+		/** 应用基础 */
+		messageRouter.InitApplicationRouter(privateGroup) // 应用
 	}
 
 	global.LOG.Debug("register filesystem handler")

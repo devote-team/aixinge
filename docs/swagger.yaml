@@ -1,5 +1,31 @@
-basePath: /
 definitions:
+  message.Application:
+    properties:
+      appKey:
+        description: 应用 ID
+        type: string
+      appSecret:
+        description: 应用密钥
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 应用名称
+        type: string
+      remark:
+        description: 备注
+        type: string
+      status:
+        description: 状态，1、正常 2、禁用
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
   request.ChangePasswordStruct:
     properties:
       newPassword:
@@ -23,7 +49,7 @@ definitions:
       ids:
         description: ID数组
         items:
-          description: 用户ID
+          description: 主键ID
           type: integer
         type: array
     type: object
@@ -60,24 +86,24 @@ definitions:
   request.RoleMenuParams:
     properties:
       id:
-        description: 角色ID
+        description: 主键ID
         type: integer
       menuIds:
         description: 菜单ID集合
         items:
-          description: 用户ID
+          description: 主键ID
           type: integer
         type: array
     type: object
   request.RoleUserParams:
     properties:
       id:
-        description: 角色ID
+        description: 主键ID
         type: integer
       userIds:
         description: 用户ID集合
         items:
-          description: 用户ID
+          description: 主键ID
           type: integer
         type: array
     type: object
@@ -96,12 +122,12 @@ definitions:
   request.UserRoleParams:
     properties:
       id:
-        description: 用户ID
+        description: 主键ID
         type: integer
       roleIds:
         description: 角色ID集合
         items:
-          description: 用户ID
+          description: 主键ID
           type: integer
         type: array
     type: object
@@ -132,10 +158,13 @@ definitions:
         description: 不缓存 1，是 2，否
         type: integer
       parentId:
-        description: 父菜单ID
+        description: 主键ID
         type: integer
       path:
         description: 路由path
+        type: string
+      redirect:
+        description: 重定向的路由path
         type: string
       remark:
         description: 备注
@@ -213,6 +242,29 @@ info:
   title: AiXinGe API
   version: 1.0.0
 paths:
+  /v1/application/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建应用
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.Application'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"应用创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建应用
+      tags:
+      - Application
   /v1/login:
     post:
       consumes:

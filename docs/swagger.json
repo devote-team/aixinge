@@ -6,8 +6,45 @@
         "contact": {},
         "version": "1.0.0"
     },
-    "basePath": "/",
     "paths": {
+        "/v1/application/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Application"
+                ],
+                "summary": "创建应用",
+                "parameters": [
+                    {
+                        "description": "创建应用",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/message.Application"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"应用创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/login": {
             "post": {
                 "consumes": [
@@ -1055,6 +1092,43 @@
         }
     },
     "definitions": {
+        "message.Application": {
+            "type": "object",
+            "properties": {
+                "appKey": {
+                    "description": "应用 ID",
+                    "type": "string"
+                },
+                "appSecret": {
+                    "description": "应用密钥",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "应用名称",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "备注",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "状态，1、正常 2、禁用",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
         "request.ChangePasswordStruct": {
             "type": "object",
             "properties": {
@@ -1088,7 +1162,7 @@
                     "description": "ID数组",
                     "type": "array",
                     "items": {
-                        "description": "用户ID",
+                        "description": "主键ID",
                         "type": "integer"
                     }
                 }
@@ -1142,14 +1216,14 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "description": "角色ID",
+                    "description": "主键ID",
                     "type": "integer"
                 },
                 "menuIds": {
                     "description": "菜单ID集合",
                     "type": "array",
                     "items": {
-                        "description": "用户ID",
+                        "description": "主键ID",
                         "type": "integer"
                     }
                 }
@@ -1159,14 +1233,14 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "description": "角色ID",
+                    "description": "主键ID",
                     "type": "integer"
                 },
                 "userIds": {
                     "description": "用户ID集合",
                     "type": "array",
                     "items": {
-                        "description": "用户ID",
+                        "description": "主键ID",
                         "type": "integer"
                     }
                 }
@@ -1193,14 +1267,14 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "description": "用户ID",
+                    "description": "主键ID",
                     "type": "integer"
                 },
                 "roleIds": {
                     "description": "角色ID集合",
                     "type": "array",
                     "items": {
-                        "description": "用户ID",
+                        "description": "主键ID",
                         "type": "integer"
                     }
                 }
@@ -1242,11 +1316,15 @@
                     "type": "integer"
                 },
                 "parentId": {
-                    "description": "父菜单ID",
+                    "description": "主键ID",
                     "type": "integer"
                 },
                 "path": {
                     "description": "路由path",
+                    "type": "string"
+                },
+                "redirect": {
+                    "description": "重定向的路由path",
                     "type": "string"
                 },
                 "remark": {
