@@ -1,4 +1,4 @@
-package smtp
+package mail
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 func TestUuid(t *testing.T) {
 	user := "发信地址"
 	password := "SMTP密码"
-	host := "smtp.qq.com:587"
+	host := "mail.qq.com:587"
 	to := []string{"收件人地址", "收件人地址1"}
 	cc := []string{"抄送地址", "抄送地址1"}
 	bcc := []string{"密送地址", "密送地址1"}

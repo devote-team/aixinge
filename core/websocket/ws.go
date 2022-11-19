@@ -1,4 +1,4 @@
-package ws
+package websocket
 
 import (
 	"context"
@@ -53,7 +53,7 @@ const (
 )
 
 var (
-	// ErrorInvalidConnection The addressed ws connection is not available anymore
+	// ErrorInvalidConnection The addressed websocket connection is not available anymore
 	// error data is the uuid of that connection
 	ErrorInvalidConnection = errors.New("message cannot be delivered invalid/gone connection")
 	// ErrorUUIDDuplication The UUID already exists in the pool
