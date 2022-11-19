@@ -23,10 +23,10 @@ type AliyunSmsClient struct {
 }
 
 type AliyunSmsResponse struct {
-	message   string `json:"Message"`
-	requestId string `json:"RequestId"`
-	code      string `json:"Code"`
-	bizId     string `json:"BizId"`
+	Message   string `json:"Message"`
+	RequestId string `json:"RequestId"`
+	Code      string `json:"Code"`
+	BizId     string `json:"BizId"`
 }
 
 func CreateClient(accessKeyId, accessKeySecret string) AliyunSmsClient {
