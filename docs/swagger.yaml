@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   message.Application:
     properties:
@@ -26,6 +27,42 @@ definitions:
         description: 更新时间
         type: string
     type: object
+  message.MailTemplate:
+    properties:
+      appId:
+        description: 应用 ID
+        type: integer
+      attachments:
+        description: 附件ID集合
+        items:
+          description: 用户ID
+          type: integer
+        type: array
+      content:
+        description: 模板内容
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 模板名称
+        type: string
+      remark:
+        description: 备注
+        type: string
+      status:
+        description: 状态 1、正常 2、禁用
+        type: integer
+      type:
+        description: 模板类型（1-文本、2-HTML）
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
   request.ChangePasswordStruct:
     properties:
       newPassword:
@@ -49,7 +86,7 @@ definitions:
       ids:
         description: ID数组
         items:
-          description: 主键ID
+          description: 用户ID
           type: integer
         type: array
     type: object
@@ -86,24 +123,24 @@ definitions:
   request.RoleMenuParams:
     properties:
       id:
-        description: 主键ID
+        description: 角色ID
         type: integer
       menuIds:
         description: 菜单ID集合
         items:
-          description: 主键ID
+          description: 用户ID
           type: integer
         type: array
     type: object
   request.RoleUserParams:
     properties:
       id:
-        description: 主键ID
+        description: 角色ID
         type: integer
       userIds:
         description: 用户ID集合
         items:
-          description: 主键ID
+          description: 用户ID
           type: integer
         type: array
     type: object
@@ -122,12 +159,12 @@ definitions:
   request.UserRoleParams:
     properties:
       id:
-        description: 主键ID
+        description: 用户ID
         type: integer
       roleIds:
         description: 角色ID集合
         items:
-          description: 主键ID
+          description: 用户ID
           type: integer
         type: array
     type: object
@@ -158,7 +195,7 @@ definitions:
         description: 不缓存 1，是 2，否
         type: integer
       parentId:
-        description: 主键ID
+        description: 父菜单ID
         type: integer
       path:
         description: 路由path
@@ -286,6 +323,52 @@ paths:
       summary: 用户登录
       tags:
       - Base
+  /v1/mail-template/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建邮件模板
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.MailTemplate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"邮件模板创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建邮件模板
+      tags:
+      - MailTemplate
+  /v1/mail-template/get:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 邮件模板ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取邮件模板
+      tags:
+      - MailTemplate
   /v1/menu/auth:
     post:
       consumes:

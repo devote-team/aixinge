@@ -4,10 +4,9 @@ go 1.19
 
 require (
 	github.com/arsmn/fiber-swagger/v2 v2.31.1
-	github.com/cloudflare/tableflip v1.2.3
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/goccy/go-json v0.9.11
-	github.com/gofiber/fiber/v2 v2.39.0
+	github.com/gofiber/fiber/v2 v2.40.0
 	github.com/gofiber/websocket/v2 v2.1.1
 	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
@@ -47,7 +46,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/rivo/uniseg v0.4.2 // indirect
+	github.com/rivo/uniseg v0.4.3 // indirect
 	github.com/savsgio/gotils v0.0.0-20211223103454-d0aaa54c5899 // indirect
 	github.com/spf13/afero v1.9.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
