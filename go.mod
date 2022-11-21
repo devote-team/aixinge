@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/arsmn/fiber-swagger/v2 v2.31.1
 	github.com/fsnotify/fsnotify v1.6.0
+	github.com/go-co-op/gocron v1.18.0
 	github.com/goccy/go-json v0.9.11
 	github.com/gofiber/fiber/v2 v2.40.0
 	github.com/gofiber/websocket/v2 v2.1.1
@@ -47,6 +48,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rivo/uniseg v0.4.3 // indirect
+	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/savsgio/gotils v0.0.0-20211223103454-d0aaa54c5899 // indirect
 	github.com/spf13/afero v1.9.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
@@ -60,6 +62,7 @@ require (
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/net v0.1.0 // indirect
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 	golang.org/x/sys v0.2.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
 	golang.org/x/tools v0.2.0 // indirect
