@@ -1,4 +1,4 @@
-package corn
+package cron
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 )
 import "github.com/go-co-op/gocron"
 
-func TestCorn(t *testing.T) {
+func TestCron(t *testing.T) {
 	// https://github.com/go-co-op/gocron
 	s := gocron.NewScheduler(time.UTC)
 	s.Every(5).Seconds().Do(func() {
