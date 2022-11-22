@@ -6,7 +6,6 @@
         "contact": {},
         "version": "1.0.0"
     },
-    "basePath": "/",
     "paths": {
         "/v1/application/create": {
             "post": {
@@ -39,6 +38,196 @@
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"应用创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/application/delete": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "删除应用",
+                "parameters": [
+                    {
+                        "description": "ID集合",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/application/get": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "根据id获取应用",
+                "parameters": [
+                    {
+                        "description": "应用ID",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.GetById"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/application/update": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "更新应用信息",
+                "parameters": [
+                    {
+                        "description": "应用信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/message.Application"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/channel/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Channel"
+                ],
+                "summary": "创建消息渠道",
+                "parameters": [
+                    {
+                        "description": "创建消息渠道",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/message.MailTemplate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"消息渠道创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/channel/get": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Channel"
+                ],
+                "summary": "根据id获取消息渠道",
+                "parameters": [
+                    {
+                        "description": "消息渠道ID",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.GetById"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -1210,14 +1399,14 @@
             "type": "object",
             "properties": {
                 "appId": {
-                    "description": "应用 ID",
+                    "description": "主键ID",
                     "type": "integer"
                 },
                 "attachments": {
                     "description": "附件ID集合",
                     "type": "array",
                     "items": {
-                        "description": "用户ID",
+                        "description": "主键ID",
                         "type": "integer"
                     }
                 },
@@ -1288,7 +1477,7 @@
                     "description": "ID数组",
                     "type": "array",
                     "items": {
-                        "description": "用户ID",
+                        "description": "主键ID",
                         "type": "integer"
                     }
                 }
@@ -1342,14 +1531,14 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "description": "角色ID",
+                    "description": "主键ID",
                     "type": "integer"
                 },
                 "menuIds": {
                     "description": "菜单ID集合",
                     "type": "array",
                     "items": {
-                        "description": "用户ID",
+                        "description": "主键ID",
                         "type": "integer"
                     }
                 }
@@ -1359,14 +1548,14 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "description": "角色ID",
+                    "description": "主键ID",
                     "type": "integer"
                 },
                 "userIds": {
                     "description": "用户ID集合",
                     "type": "array",
                     "items": {
-                        "description": "用户ID",
+                        "description": "主键ID",
                         "type": "integer"
                     }
                 }
@@ -1393,14 +1582,14 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "description": "用户ID",
+                    "description": "主键ID",
                     "type": "integer"
                 },
                 "roleIds": {
                     "description": "角色ID集合",
                     "type": "array",
                     "items": {
-                        "description": "用户ID",
+                        "description": "主键ID",
                         "type": "integer"
                     }
                 }
@@ -1442,7 +1631,7 @@
                     "type": "integer"
                 },
                 "parentId": {
-                    "description": "父菜单ID",
+                    "description": "主键ID",
                     "type": "integer"
                 },
                 "path": {
