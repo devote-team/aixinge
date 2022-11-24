@@ -8,6 +8,7 @@ import (
 	"aixinge/utils"
 	"aixinge/utils/snowflake"
 	"errors"
+
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
 )
@@ -70,19 +71,19 @@ func (b *UserService) AssignRole(params systemReq.UserRoleParams) (err error) {
 		return errors.New("角色ID集合不能为空")
 	}
 	return global.DB.Transaction(func(tx *gorm.DB) error {
-		db := tx.Model(&system.UserRoles{})
+		db := tx.Model(&system.UserRole{})
 		err = db.Delete("user_id = ?", params.ID).Error
 		if err != nil {
 			return errors.New("分配角色历史数据删除失败")
 		}
-		var userRoles []system.UserRoles
+		var userRole []system.UserRole
 		for i := range params.RoleIds {
-			var ur system.UserRoles
+			var ur system.UserRole
 			ur.UserId = params.ID
 			ur.RoleId = params.RoleIds[i]
-			userRoles = append(userRoles, ur)
+			userRole = append(userRole, ur)
 		}
-		err = db.CreateInBatches(&userRoles, 100).Error
+		err = db.CreateInBatches(&userRole, 100).Error
 		if err != nil {
 			return errors.New("分配角色保存失败")
 		}
@@ -92,7 +93,7 @@ func (b *UserService) AssignRole(params systemReq.UserRoleParams) (err error) {
 
 func (b *UserService) SelectedRoles(id snowflake.ID) (err error, list interface{}) {
 	var roleIds []snowflake.ID
-	var userRoleList []system.UserRoles
+	var userRoleList []system.UserRole
 	err = global.DB.Where("user_id=?", id).Find(&userRoleList).Error
 	if len(userRoleList) > 0 {
 		for i := range userRoleList {
