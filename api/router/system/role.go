@@ -20,6 +20,7 @@ func (s *RoleRouter) InitRoleRouter(router fiber.Router) {
 		roleRouter.Post("assign-menu", roleApi.AssignMenu)       // 角色分配菜单
 		roleRouter.Post("selected-menus", roleApi.SelectedMenus) // 角色已分配菜单ID列表
 		roleRouter.Post("get", roleApi.Get)                      // 根据id获取角色
+		roleRouter.Post("batch-get", roleApi.BatchGet)           // 批量根据id获取角色
 		roleRouter.Post("page", roleApi.Page)                    // 分页获取角色列表
 		roleRouter.Post("list", roleApi.List)                    // 获取角色列表
 	}

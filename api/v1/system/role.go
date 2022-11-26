@@ -191,6 +191,29 @@ func (b *Role) Get(c *fiber.Ctx) error {
 	}
 }
 
+// Get
+// @Tags Role
+// @Summary 批量根据id获取角色
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.GetByIds true "角色ID列表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /v1/role/batch-get [post]
+func (b *Role) BatchGet(c *fiber.Ctx) error {
+	var idsReq request.IdsReq
+	_ = c.BodyParser(&idsReq)
+	if err := validation.Verify(idsReq, validation.Id); err != nil {
+		return response.FailWithMessage(err.Error(), c)
+	}
+	if err, list := roleService.GetByIds(idsReq); err != nil {
+		global.LOG.Error("获取失败!", zap.Any("err", err))
+		return response.FailWithMessage("获取失败", c)
+	} else {
+		return response.OkWithDetailed(list, "获取成功", c)
+	}
+}
+
 // Page
 // @Tags Role
 // @Summary 分页获取角色列表

@@ -116,6 +116,12 @@ func (t *RoleService) GetById(id snowflake.ID) (err error, role system.Role) {
 	return err, role
 }
 
+func (t *RoleService) GetByIds(idsReq request.IdsReq) (err error, list interface{}) {
+	var roleList []system.Role
+	err = global.DB.Where("id in ?", idsReq.Ids).Find(&roleList).Error
+	return err, roleList
+}
+
 func (t *RoleService) Page(info request.PageInfo) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
