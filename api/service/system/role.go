@@ -111,6 +111,13 @@ func (t *RoleService) SelectedMenus(id snowflake.ID) (err error, list interface{
 	return err, menuIds
 }
 
+func (t *RoleService) SelectedMenusDetail(id snowflake.ID) (err error, list interface{}) {
+	var menuList []system.Menu
+	db := global.DB.Model(&system.Menu{})
+	db.Raw("select m.* from axg_menu m join axg_role_menu r on m.id=r.menu_id where m.status=1 and r.role_id=?", id).Scan(&menuList)
+	return err, menuList
+}
+
 func (t *RoleService) GetById(id snowflake.ID) (err error, role system.Role) {
 	err = global.DB.Where("id = ?", id).First(&role).Error
 	return err, role

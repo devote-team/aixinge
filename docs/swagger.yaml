@@ -874,6 +874,29 @@ paths:
       summary: 根据id获取角色已分配的菜单ID列表
       tags:
       - Role
+  /v1/role/selected-menus-detail:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取角色已分配的菜单详细信息列表
+      tags:
+      - Role
   /v1/role/selected-users:
     post:
       consumes:

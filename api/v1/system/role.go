@@ -168,6 +168,29 @@ func (b *Role) SelectedMenus(c *fiber.Ctx) error {
 	}
 }
 
+// SelectedMenus
+// @Tags Role
+// @Summary 根据id获取角色已分配的菜单详细信息列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.GetById true "角色ID"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /v1/role/selected-menus [post]
+func (b *Role) SelectedMenusDetail(c *fiber.Ctx) error {
+	var idInfo request.GetById
+	_ = c.BodyParser(&idInfo)
+	if err := validation.Verify(idInfo, validation.Id); err != nil {
+		return response.FailWithMessage(err.Error(), c)
+	}
+	if err, menuList := roleService.SelectedMenusDetail(idInfo.ID); err != nil {
+		global.LOG.Error("获取角色分配菜单ID列表失败", zap.Any("err", err))
+		return response.FailWithMessage("获取失败", c)
+	} else {
+		return response.OkWithDetailed(menuList, "获取成功", c)
+	}
+}
+
 // Get
 // @Tags Role
 // @Summary 根据id获取角色
