@@ -14,7 +14,7 @@ type Role struct {
 	Sort   int    `json:"sort"`   // 排序
 }
 
-type RoleMenus struct {
+type RoleMenu struct {
 	RoleId snowflake.ID `json:"roleId"` // 角色ID
 	MenuId snowflake.ID `json:"menuId"` // 菜单ID
 }
