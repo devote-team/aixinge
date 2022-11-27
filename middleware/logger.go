@@ -7,7 +7,7 @@ import (
 
 func Logger() fiber.Handler {
 	config := logger.ConfigDefault
-	config.Format = "${time} ${status} - ${latency} ${method} ${path}"
+	config.Format = "${time} ${status} - ${latency} ${method} ${path} \n"
 	config.TimeFormat = "2006/01/02 - 15:04:05"
 	return logger.New(config)
 
