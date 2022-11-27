@@ -8,6 +8,7 @@ import (
 	"aixinge/utils"
 	"aixinge/utils/snowflake"
 	"errors"
+
 	"gorm.io/gorm"
 )
 
@@ -38,19 +39,19 @@ func (t *RoleService) AssignUser(params systemReq.RoleUserParams) (err error) {
 		return errors.New("用户ID集合不能为空")
 	}
 	return global.DB.Transaction(func(tx *gorm.DB) error {
-		db := tx.Model(&system.UserRoles{})
-		err = db.Where("role_id = ?", params.ID).Delete(&system.UserRoles{}).Error
+		db := tx.Model(&system.UserRole{})
+		err = db.Where("role_id = ?", params.ID).Delete(&system.UserRole{}).Error
 		if err != nil {
 			return errors.New("分配用户历史数据删除失败")
 		}
-		var userRoles []system.UserRoles
+		var userRole []system.UserRole
 		for i := range params.UserIds {
-			var rm system.UserRoles
+			var rm system.UserRole
 			rm.RoleId = params.ID
 			rm.UserId = params.UserIds[i]
-			userRoles = append(userRoles, rm)
+			userRole = append(userRole, rm)
 		}
-		err = db.CreateInBatches(&userRoles, 100).Error
+		err = db.CreateInBatches(&userRole, 100).Error
 		if err != nil {
 			return errors.New("分配用户保存失败")
 		}
@@ -60,7 +61,7 @@ func (t *RoleService) AssignUser(params systemReq.RoleUserParams) (err error) {
 
 func (t *RoleService) SelectedUsers(id snowflake.ID) (err error, list interface{}) {
 	var userIds []snowflake.ID
-	var userRoleList []system.UserRoles
+	var userRoleList []system.UserRole
 	err = global.DB.Where("role_id=?", id).Find(&userRoleList).Error
 	if len(userRoleList) > 0 {
 		for i := range userRoleList {
@@ -78,19 +79,19 @@ func (t *RoleService) AssignMenu(params systemReq.RoleMenuParams) (err error) {
 		return errors.New("菜单ID集合不能为空")
 	}
 	return global.DB.Transaction(func(tx *gorm.DB) error {
-		db := tx.Model(&system.RoleMenus{})
-		err = db.Where("role_id = ?", params.ID).Delete(&system.RoleMenus{}).Error
+		db := tx.Model(&system.RoleMenu{})
+		err = db.Where("role_id = ?", params.ID).Delete(&system.RoleMenu{}).Error
 		if err != nil {
 			return errors.New("分配菜单历史数据删除失败")
 		}
-		var roleMenus []system.RoleMenus
+		var roleMenu []system.RoleMenu
 		for i := range params.MenuIds {
-			var rm system.RoleMenus
+			var rm system.RoleMenu
 			rm.RoleId = params.ID
 			rm.MenuId = params.MenuIds[i]
-			roleMenus = append(roleMenus, rm)
+			roleMenu = append(roleMenu, rm)
 		}
-		err = db.CreateInBatches(&roleMenus, 100).Error
+		err = db.CreateInBatches(&roleMenu, 100).Error
 		if err != nil {
 			return errors.New("分配菜单保存失败")
 		}
@@ -100,7 +101,7 @@ func (t *RoleService) AssignMenu(params systemReq.RoleMenuParams) (err error) {
 
 func (t *RoleService) SelectedMenus(id snowflake.ID) (err error, list interface{}) {
 	var menuIds []snowflake.ID
-	var roleMenuList []system.RoleMenus
+	var roleMenuList []system.RoleMenu
 	err = global.DB.Where("role_id=?", id).Find(&roleMenuList).Error
 	if len(roleMenuList) > 0 {
 		for i := range roleMenuList {
@@ -110,9 +111,22 @@ func (t *RoleService) SelectedMenus(id snowflake.ID) (err error, list interface{
 	return err, menuIds
 }
 
+func (t *RoleService) SelectedMenusDetail(id snowflake.ID) (err error, list interface{}) {
+	var menuList []system.Menu
+	db := global.DB.Model(&system.Menu{})
+	db.Raw("select m.* from axg_menu m join axg_role_menu r on m.id=r.menu_id where m.status=1 and r.role_id=?", id).Scan(&menuList)
+	return err, menuList
+}
+
 func (t *RoleService) GetById(id snowflake.ID) (err error, role system.Role) {
 	err = global.DB.Where("id = ?", id).First(&role).Error
 	return err, role
+}
+
+func (t *RoleService) GetByIds(idsReq request.IdsReq) (err error, list interface{}) {
+	var roleList []system.Role
+	err = global.DB.Where("id in ?", idsReq.Ids).Find(&roleList).Error
+	return err, roleList
 }
 
 func (t *RoleService) Page(info request.PageInfo) (err error, list interface{}, total int64) {

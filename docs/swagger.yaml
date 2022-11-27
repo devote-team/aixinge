@@ -1,4 +1,3 @@
-basePath: /
 definitions:
   message.Application:
     properties:
@@ -30,12 +29,12 @@ definitions:
   message.MailTemplate:
     properties:
       appId:
-        description: 应用 ID
+        description: 主键ID
         type: integer
       attachments:
         description: 附件ID集合
         items:
-          description: 用户ID
+          description: 主键ID
           type: integer
         type: array
       content:
@@ -86,7 +85,7 @@ definitions:
       ids:
         description: ID数组
         items:
-          description: 用户ID
+          description: 主键ID
           type: integer
         type: array
     type: object
@@ -123,24 +122,24 @@ definitions:
   request.RoleMenuParams:
     properties:
       id:
-        description: 角色ID
+        description: 主键ID
         type: integer
       menuIds:
         description: 菜单ID集合
         items:
-          description: 用户ID
+          description: 主键ID
           type: integer
         type: array
     type: object
   request.RoleUserParams:
     properties:
       id:
-        description: 角色ID
+        description: 主键ID
         type: integer
       userIds:
         description: 用户ID集合
         items:
-          description: 用户ID
+          description: 主键ID
           type: integer
         type: array
     type: object
@@ -159,12 +158,12 @@ definitions:
   request.UserRoleParams:
     properties:
       id:
-        description: 用户ID
+        description: 主键ID
         type: integer
       roleIds:
         description: 角色ID集合
         items:
-          description: 用户ID
+          description: 主键ID
           type: integer
         type: array
     type: object
@@ -195,7 +194,7 @@ definitions:
         description: 不缓存 1，是 2，否
         type: integer
       parentId:
-        description: 父菜单ID
+        description: 主键ID
         type: integer
       path:
         description: 路由path
@@ -302,6 +301,121 @@ paths:
       summary: 创建应用
       tags:
       - Application
+  /v1/application/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除应用
+      tags:
+      - Menu
+  /v1/application/get:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 应用ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取应用
+      tags:
+      - Menu
+  /v1/application/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 应用信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.Application'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新应用信息
+      tags:
+      - Menu
+  /v1/channel/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建消息渠道
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.MailTemplate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"消息渠道创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建消息渠道
+      tags:
+      - Channel
+  /v1/channel/get:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 消息渠道ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取消息渠道
+      tags:
+      - Channel
   /v1/login:
     post:
       consumes:
@@ -675,6 +789,29 @@ paths:
       summary: 根据id获取角色
       tags:
       - Role
+  /v1/role/batch-get:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id列表批量获取角色
+      tags:
+      - Role
   /v1/role/list:
     post:
       consumes:
@@ -735,6 +872,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 根据id获取角色已分配的菜单ID列表
+      tags:
+      - Role
+  /v1/role/selected-menus-detail:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetById'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 根据id获取角色已分配的菜单详细信息列表
       tags:
       - Role
   /v1/role/selected-users:

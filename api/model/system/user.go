@@ -3,7 +3,8 @@ package system
 import (
 	"aixinge/global"
 	"aixinge/utils/snowflake"
-	"github.com/satori/go.uuid"
+
+	uuid "github.com/satori/go.uuid"
 )
 
 type User struct {
@@ -16,7 +17,7 @@ type User struct {
 	Status   int       `json:"status"`   // 状态，1、正常 2、禁用
 }
 
-type UserRoles struct {
+type UserRole struct {
 	UserId snowflake.ID `json:"userId"` // 用户ID
 	RoleId snowflake.ID `json:"roleId"` // 角色ID
 }

@@ -21,7 +21,6 @@ func GetUtcTime() string {
 }
 
 func PercentEncode(str string) string {
-	//替换字符串
 	str = strings.Replace(str, "+", "%20", -1)
 	str = strings.Replace(str, "*", "%2A", -1)
 	str = strings.Replace(str, "%7E", "~", -1)
