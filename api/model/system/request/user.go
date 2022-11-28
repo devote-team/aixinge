@@ -25,6 +25,6 @@ type ChangePasswordStruct struct {
 
 // UserRoleParams 用户分配角色参数对象
 type UserRoleParams struct {
-	ID      snowflake.ID   `json:"id,omitempty"` // 用户ID
-	RoleIds []snowflake.ID `json:"roleIds"`      // 角色ID集合
+	ID      snowflake.ID   `json:"id,omitempty" swaggertype:"string"`  // 用户ID
+	RoleIds []snowflake.ID `json:"roleIds" swaggertype:"array,string"` // 角色ID集合
 }

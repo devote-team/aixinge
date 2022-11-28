@@ -18,6 +18,6 @@ type User struct {
 }
 
 type UserRole struct {
-	UserId snowflake.ID `json:"userId"` // 用户ID
-	RoleId snowflake.ID `json:"roleId"` // 角色ID
+	UserId snowflake.ID `json:"userId" swaggertype:"string"` // 用户ID
+	RoleId snowflake.ID `json:"roleId" swaggertype:"string"` // 角色ID
 }

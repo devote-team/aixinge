@@ -15,6 +15,6 @@ type Role struct {
 }
 
 type RoleMenu struct {
-	RoleId snowflake.ID `json:"roleId"` // 角色ID
-	MenuId snowflake.ID `json:"menuId"` // 菜单ID
+	RoleId snowflake.ID `json:"roleId" swaggertype:"string"` // 角色ID
+	MenuId snowflake.ID `json:"menuId" swaggertype:"string"` // 菜单ID
 }
