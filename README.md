@@ -33,10 +33,11 @@ V1 版本功能规划：
 
 ## 技术栈
 
-- Fiber
-- GORM
-- Viper
-- Casbin
+- [fiber](https://gofiber.io)
+- [gorm](https://gorm.io/zh_CN/)
+- [viper](https://github.com/spf13/viper)
+- [casbin](https://github.com/casbin/casbin)
+- [swag](https://github.com/swaggo/swag/blob/master/README_zh-CN.md)
 
 ## 依赖升级
 
