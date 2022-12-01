@@ -12,7 +12,7 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
+        type: string
       name:
         description: 应用名称
         type: string
@@ -29,12 +29,11 @@ definitions:
   message.MailTemplate:
     properties:
       appId:
-        description: 主键ID
-        type: integer
+        description: 应用 ID
+        type: string
       attachments:
         description: 附件ID集合
         items:
-          description: 主键ID
           type: integer
         type: array
       content:
@@ -45,7 +44,7 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
+        type: string
       name:
         description: 模板名称
         type: string
@@ -78,15 +77,14 @@ definitions:
     properties:
       id:
         description: 主键ID
-        type: integer
+        type: string
     type: object
   request.IdsReq:
     properties:
       ids:
         description: ID数组
         items:
-          description: 主键ID
-          type: integer
+          type: string
         type: array
     type: object
   request.Login:
@@ -122,25 +120,23 @@ definitions:
   request.RoleMenuParams:
     properties:
       id:
-        description: 主键ID
-        type: integer
+        description: 角色ID
+        type: string
       menuIds:
         description: 菜单ID集合
         items:
-          description: 主键ID
-          type: integer
+          type: string
         type: array
     type: object
   request.RoleUserParams:
     properties:
       id:
-        description: 主键ID
-        type: integer
+        description: 角色ID
+        type: string
       userIds:
         description: 用户ID集合
         items:
-          description: 主键ID
-          type: integer
+          type: string
         type: array
     type: object
   request.UserCreate:
@@ -158,13 +154,12 @@ definitions:
   request.UserRoleParams:
     properties:
       id:
-        description: 主键ID
-        type: integer
+        description: 用户ID
+        type: string
       roleIds:
         description: 角色ID集合
         items:
-          description: 主键ID
-          type: integer
+          type: string
         type: array
     type: object
   system.Menu:
@@ -183,7 +178,7 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
+        type: string
       isFrame:
         description: Frame 1，是 2，否
         type: integer
@@ -194,8 +189,8 @@ definitions:
         description: 不缓存 1，是 2，否
         type: integer
       parentId:
-        description: 主键ID
-        type: integer
+        description: 父菜单ID
+        type: string
       path:
         description: 路由path
         type: string
@@ -228,7 +223,7 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
+        type: string
       name:
         description: 名称
         type: string
@@ -255,7 +250,7 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
+        type: string
       nickName:
         description: 用户昵称
         type: string
@@ -323,7 +318,7 @@ paths:
       - ApiKeyAuth: []
       summary: 删除应用
       tags:
-      - Menu
+      - Application
   /v1/application/get:
     post:
       consumes:
@@ -346,7 +341,7 @@ paths:
       - ApiKeyAuth: []
       summary: 根据id获取应用
       tags:
-      - Menu
+      - Application
   /v1/application/update:
     post:
       consumes:
@@ -369,7 +364,7 @@ paths:
       - ApiKeyAuth: []
       summary: 更新应用信息
       tags:
-      - Menu
+      - Application
   /v1/channel/create:
     post:
       consumes:
@@ -720,6 +715,29 @@ paths:
       summary: 角色分配用户
       tags:
       - Role
+  /v1/role/batch-get:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID列表
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量根据id获取角色
+      tags:
+      - Role
   /v1/role/create:
     post:
       consumes:
@@ -789,29 +807,6 @@ paths:
       summary: 根据id获取角色
       tags:
       - Role
-  /v1/role/batch-get:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 角色ID集合
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 根据id列表批量获取角色
-      tags:
-      - Role
   /v1/role/list:
     post:
       consumes:
@@ -852,29 +847,6 @@ paths:
       tags:
       - Role
   /v1/role/selected-menus:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 角色ID
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.GetById'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 根据id获取角色已分配的菜单ID列表
-      tags:
-      - Role
-  /v1/role/selected-menus-detail:
     post:
       consumes:
       - application/json

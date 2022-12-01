@@ -168,7 +168,7 @@ func (b *Role) SelectedMenus(c *fiber.Ctx) error {
 	}
 }
 
-// SelectedMenus
+// SelectedMenusDetail
 // @Tags Role
 // @Summary 根据id获取角色已分配的菜单详细信息列表
 // @Security ApiKeyAuth
@@ -214,13 +214,13 @@ func (b *Role) Get(c *fiber.Ctx) error {
 	}
 }
 
-// Get
+// BatchGet
 // @Tags Role
 // @Summary 批量根据id获取角色
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.GetByIds true "角色ID列表"
+// @Param data body request.IdsReq true "角色ID列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /v1/role/batch-get [post]
 func (b *Role) BatchGet(c *fiber.Ctx) error {

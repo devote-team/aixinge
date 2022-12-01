@@ -68,7 +68,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Menu"
+                    "Application"
                 ],
                 "summary": "删除应用",
                 "parameters": [
@@ -106,7 +106,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Menu"
+                    "Application"
                 ],
                 "summary": "根据id获取应用",
                 "parameters": [
@@ -144,7 +144,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Menu"
+                    "Application"
                 ],
                 "summary": "更新应用信息",
                 "parameters": [
@@ -744,6 +744,44 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/role/batch-get": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Role"
+                ],
+                "summary": "批量根据id获取角色",
+                "parameters": [
+                    {
+                        "description": "角色ID列表",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/role/create": {
             "post": {
                 "security": [
@@ -858,44 +896,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/role/batch-get": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Role"
-                ],
-                "summary": "批量获取角色",
-                "parameters": [
-                    {
-                        "description": "角色ID集合",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/v1/role/list": {
             "post": {
                 "security": [
@@ -977,45 +977,7 @@ const docTemplate = `{
                 "tags": [
                     "Role"
                 ],
-                "summary": "根据id获取角色已分配的菜单ID列表",
-                "parameters": [
-                    {
-                        "description": "角色ID",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.GetById"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/role/selected-menus-detail": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Role"
-                ],
-                "summary": "根据id获取角色已分配的菜单详细列表",
+                "summary": "根据id获取角色已分配的菜单详细信息列表",
                 "parameters": [
                     {
                         "description": "角色ID",
@@ -1460,7 +1422,7 @@ const docTemplate = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "name": {
                     "description": "应用名称",
@@ -1484,14 +1446,13 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "appId": {
-                    "description": "主键ID",
-                    "type": "integer"
+                    "description": "应用 ID",
+                    "type": "string"
                 },
                 "attachments": {
                     "description": "附件ID集合",
                     "type": "array",
                     "items": {
-                        "description": "主键ID",
                         "type": "integer"
                     }
                 },
@@ -1505,7 +1466,7 @@ const docTemplate = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "name": {
                     "description": "模板名称",
@@ -1551,7 +1512,7 @@ const docTemplate = `{
             "properties": {
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
+                    "type": "string"
                 }
             }
         },
@@ -1562,8 +1523,7 @@ const docTemplate = `{
                     "description": "ID数组",
                     "type": "array",
                     "items": {
-                        "description": "主键ID",
-                        "type": "integer"
+                        "type": "string"
                     }
                 }
             }
@@ -1616,15 +1576,14 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "id": {
-                    "description": "主键ID",
-                    "type": "integer"
+                    "description": "角色ID",
+                    "type": "string"
                 },
                 "menuIds": {
                     "description": "菜单ID集合",
                     "type": "array",
                     "items": {
-                        "description": "主键ID",
-                        "type": "integer"
+                        "type": "string"
                     }
                 }
             }
@@ -1633,15 +1592,14 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "id": {
-                    "description": "主键ID",
-                    "type": "integer"
+                    "description": "角色ID",
+                    "type": "string"
                 },
                 "userIds": {
                     "description": "用户ID集合",
                     "type": "array",
                     "items": {
-                        "description": "主键ID",
-                        "type": "integer"
+                        "type": "string"
                     }
                 }
             }
@@ -1667,15 +1625,14 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "id": {
-                    "description": "主键ID",
-                    "type": "integer"
+                    "description": "用户ID",
+                    "type": "string"
                 },
                 "roleIds": {
                     "description": "角色ID集合",
                     "type": "array",
                     "items": {
-                        "description": "主键ID",
-                        "type": "integer"
+                        "type": "string"
                     }
                 }
             }
@@ -1701,7 +1658,7 @@ const docTemplate = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "isFrame": {
                     "description": "Frame 1，是 2，否",
@@ -1716,8 +1673,8 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "parentId": {
-                    "description": "主键ID",
-                    "type": "integer"
+                    "description": "父菜单ID",
+                    "type": "string"
                 },
                 "path": {
                     "description": "路由path",
@@ -1762,7 +1719,7 @@ const docTemplate = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "name": {
                     "description": "名称",
@@ -1799,7 +1756,7 @@ const docTemplate = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "nickName": {
                     "description": "用户昵称",
