@@ -35,7 +35,7 @@ func (b *Application) Create(c *fiber.Ctx) error {
 }
 
 // Delete
-// @Tags Menu
+// @Tags Application
 // @Summary 删除应用
 // @Security ApiKeyAuth
 // @accept application/json
@@ -58,7 +58,7 @@ func (b *Application) Delete(c *fiber.Ctx) error {
 }
 
 // Update
-// @Tags Menu
+// @Tags Application
 // @Summary 更新应用信息
 // @Security ApiKeyAuth
 // @accept application/json
@@ -83,7 +83,7 @@ func (b *Application) Update(c *fiber.Ctx) error {
 }
 
 // Get
-// @Tags Menu
+// @Tags Application
 // @Summary 根据id获取应用
 // @Security ApiKeyAuth
 // @accept application/json
