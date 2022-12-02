@@ -70,6 +70,7 @@ func Routers() *fiber.App {
 		messageRouter.InitApplicationRouter(privateGroup)     // 应用
 		messageRouter.InitChannelRouter(privateGroup)         // 消息渠道
 		messageRouter.InitChannelTemplateRouter(privateGroup) // 渠道模板
+		messageRouter.InitMailLogRouter(privateGroup)         // 邮件日志
 		messageRouter.InitMailTemplateRouter(privateGroup)    // 邮件模板
 	}
 

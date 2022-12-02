@@ -87,6 +87,59 @@ definitions:
         description: 消息类型(枚举)
         type: integer
     type: object
+  message.MailLog:
+    properties:
+      appId:
+        description: 应用 ID
+        type: string
+      attachments:
+        description: 附件JSON
+        items:
+          $ref: '#/definitions/common.Attachment'
+        type: array
+      bcc:
+        description: 密送地址集合
+        items:
+          type: string
+        type: array
+      cc:
+        description: 抄送地址集合
+        items:
+          type: string
+        type: array
+      content:
+        description: 邮件具体内容
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      errMsg:
+        description: 错误日志
+        type: string
+      id:
+        description: 主键ID
+        type: string
+      parameters:
+        description: 邮件参数
+        type: string
+      requestId:
+        description: 唯一请求 ID
+        type: string
+      status:
+        description: 状态 1、正常 2、异常
+        type: integer
+      templateId:
+        description: 邮件模板 ID
+        type: string
+      to:
+        description: 发件地址集合
+        items:
+          type: string
+        type: array
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
   message.MailTemplate:
     properties:
       appId:
@@ -608,6 +661,75 @@ paths:
       summary: 用户登录
       tags:
       - Base
+  /v1/mail-log/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建邮件日志
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.MailLog'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"邮件日志创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建邮件日志
+      tags:
+      - MailLog
+  /v1/mail-log/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除邮件日志
+      tags:
+      - MailLog
+  /v1/mail-log/page:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 页码, 每页大小
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取邮件日志
+      tags:
+      - MailLog
   /v1/mail-template/create:
     post:
       consumes:
