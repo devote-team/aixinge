@@ -70,10 +70,7 @@ definitions:
         type: integer
     type: object
   message.ChannelConfig:
-    properties:
-      name:
-        description: 渠道名称
-        type: string
+    additionalProperties: true
     type: object
   message.MailTemplate:
     properties:

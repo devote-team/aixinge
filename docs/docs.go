@@ -1730,12 +1730,7 @@ const docTemplate_swagger = `{
         },
         "message.ChannelConfig": {
             "type": "object",
-            "properties": {
-                "name": {
-                    "description": "渠道名称",
-                    "type": "string"
-                }
-            }
+            "additionalProperties": true
         },
         "message.MailTemplate": {
             "type": "object",
