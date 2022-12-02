@@ -1,4 +1,14 @@
+basePath: /
 definitions:
+  common.Attachment:
+    properties:
+      fileId:
+        description: 文件 ID
+        type: string
+      fileName:
+        description: 文件名称
+        type: string
+    type: object
   message.Application:
     properties:
       appKey:
@@ -32,9 +42,9 @@ definitions:
         description: 应用 ID
         type: string
       attachments:
-        description: 附件ID集合
+        description: 附件JSON
         items:
-          type: integer
+          $ref: '#/definitions/common.Attachment'
         type: array
       content:
         description: 模板内容
@@ -455,6 +465,29 @@ paths:
       summary: 创建邮件模板
       tags:
       - MailTemplate
+  /v1/mail-template/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除邮件模板
+      tags:
+      - MailTemplate
   /v1/mail-template/get:
     post:
       consumes:
@@ -476,6 +509,52 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 根据id获取邮件模板
+      tags:
+      - MailTemplate
+  /v1/mail-template/page:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 页码, 每页大小
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取邮件模板
+      tags:
+      - MailTemplate
+  /v1/mail-template/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 邮件模板
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.MailTemplate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新邮件模板
       tags:
       - MailTemplate
   /v1/menu/auth:

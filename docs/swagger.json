@@ -6,6 +6,7 @@
         "contact": {},
         "version": "1.0.0"
     },
+    "basePath": "/",
     "paths": {
         "/v1/application/create": {
             "post": {
@@ -306,6 +307,44 @@
                 }
             }
         },
+        "/v1/mail-template/delete": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MailTemplate"
+                ],
+                "summary": "删除邮件模板",
+                "parameters": [
+                    {
+                        "description": "ID集合",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/mail-template/get": {
             "post": {
                 "security": [
@@ -337,6 +376,82 @@
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/mail-template/page": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MailTemplate"
+                ],
+                "summary": "分页获取邮件模板",
+                "parameters": [
+                    {
+                        "description": "页码, 每页大小",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.PageInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/mail-template/update": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MailTemplate"
+                ],
+                "summary": "更新邮件模板",
+                "parameters": [
+                    {
+                        "description": "邮件模板",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/message.MailTemplate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"设置成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -1396,6 +1511,19 @@
         }
     },
     "definitions": {
+        "common.Attachment": {
+            "type": "object",
+            "properties": {
+                "fileId": {
+                    "description": "文件 ID",
+                    "type": "string"
+                },
+                "fileName": {
+                    "description": "文件名称",
+                    "type": "string"
+                }
+            }
+        },
         "message.Application": {
             "type": "object",
             "properties": {
@@ -1441,10 +1569,10 @@
                     "type": "string"
                 },
                 "attachments": {
-                    "description": "附件ID集合",
+                    "description": "附件JSON",
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "$ref": "#/definitions/common.Attachment"
                     }
                 },
                 "content": {

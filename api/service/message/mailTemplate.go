@@ -11,22 +11,32 @@ import (
 type MailTemplateService struct {
 }
 
-func (c *MailTemplateService) Create(app message.MailTemplate) error {
+func (e *MailTemplateService) Create(app message.MailTemplate) error {
 	app.ID = utils.Id()
 	// 状态，1、正常 2、禁用
 	app.Status = 1
 	return global.DB.Create(&app).Error
 }
 
-func (c *MailTemplateService) Delete(idsReq request.IdsReq) error {
+func (e *MailTemplateService) Delete(idsReq request.IdsReq) error {
 	return global.DB.Delete(&[]message.MailTemplate{}, "id in ?", idsReq.Ids).Error
 }
 
-func (c *MailTemplateService) Update(mt message.MailTemplate) (error, message.MailTemplate) {
+func (e *MailTemplateService) Update(mt message.MailTemplate) (error, message.MailTemplate) {
 	return global.DB.Updates(&mt).Error, mt
 }
 
-func (c *MailTemplateService) GetById(id snowflake.ID) (err error, mt message.MailTemplate) {
+func (e *MailTemplateService) GetById(id snowflake.ID) (err error, mt message.MailTemplate) {
 	err = global.DB.Where("id = ?", id).First(&mt).Error
 	return err, mt
+}
+
+func (e *MailTemplateService) Page(info request.PageInfo) (err error, list interface{}, total int64) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	db := global.DB.Model(&message.MailTemplate{})
+	var mtList []message.MailTemplate
+	err = db.Count(&total).Error
+	err = db.Limit(limit).Offset(offset).Find(&mtList).Error
+	return err, mtList, total
 }
