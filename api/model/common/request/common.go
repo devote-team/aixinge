@@ -8,6 +8,10 @@ type PageInfo struct {
 	PageSize int `json:"pageSize" form:"pageSize"` // 每页大小
 }
 
+func (p PageInfo) Offset() int {
+	return p.PageSize * (p.Page - 1)
+}
+
 // GetById Find by id structure
 type GetById struct {
 	ID snowflake.ID `json:"id" form:"id" swaggertype:"string"` // 主键ID

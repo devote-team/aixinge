@@ -13,7 +13,10 @@ func (c *ChannelRouter) InitChannelRouter(router fiber.Router) (R fiber.Router) 
 	var channelApi = v1.AppApi.MessageApi.Channel
 	{
 		channelRouter.Post("create", channelApi.Create) // 创建
-		channelRouter.Post("get", channelApi.Get)       // 根据id获取消息渠道
+		channelRouter.Post("delete", channelApi.Delete) // 删除
+		channelRouter.Post("update", channelApi.Update) // 更新
+		channelRouter.Post("get", channelApi.Get)       // 根据id获取邮件模板
+		channelRouter.Post("page", channelApi.Page)     // 分页
 	}
 	return channelRouter
 }

@@ -36,6 +36,45 @@ definitions:
         description: 更新时间
         type: string
     type: object
+  message.Channel:
+    properties:
+      config:
+        $ref: '#/definitions/message.ChannelConfig'
+        description: 消息渠道配置（JSON）
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: string
+      name:
+        description: 消息渠道名称
+        type: string
+      provider:
+        description: 消息服务提供商
+        type: integer
+      remark:
+        description: 备注
+        type: string
+      status:
+        description: 状态 1、正常 2、禁用
+        type: integer
+      type:
+        description: 消息类型(枚举)
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      weight:
+        description: 权重
+        type: integer
+    type: object
+  message.ChannelConfig:
+    properties:
+      name:
+        description: 渠道名称
+        type: string
+    type: object
   message.MailTemplate:
     properties:
       appId:
@@ -385,7 +424,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/message.MailTemplate'
+          $ref: '#/definitions/message.Channel'
       produces:
       - application/json
       responses:
@@ -396,6 +435,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 创建消息渠道
+      tags:
+      - Channel
+  /v1/channel/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID集合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除消息渠道
       tags:
       - Channel
   /v1/channel/get:
@@ -419,6 +481,52 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 根据id获取消息渠道
+      tags:
+      - Channel
+  /v1/channel/page:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 页码, 每页大小
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取消息渠道
+      tags:
+      - Channel
+  /v1/channel/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 消息渠道
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/message.Channel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新消息渠道
       tags:
       - Channel
   /v1/login:

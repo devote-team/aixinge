@@ -31,12 +31,12 @@ func (e *MailTemplateService) GetById(id snowflake.ID) (err error, mt message.Ma
 	return err, mt
 }
 
-func (e *MailTemplateService) Page(info request.PageInfo) (err error, list interface{}, total int64) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
+func (e *MailTemplateService) Page(page request.PageInfo) (err error, list interface{}, total int64) {
 	db := global.DB.Model(&message.MailTemplate{})
 	var mtList []message.MailTemplate
 	err = db.Count(&total).Error
-	err = db.Limit(limit).Offset(offset).Find(&mtList).Error
+	if total > 0 {
+		err = db.Limit(page.PageSize).Offset(page.Offset()).Find(&mtList).Error
+	}
 	return err, mtList, total
 }

@@ -22,11 +22,21 @@ func (c *ChannelService) Delete(idsReq request.IdsReq) error {
 	return global.DB.Delete(&[]message.Channel{}, "id in ?", idsReq.Ids).Error
 }
 
-func (c *ChannelService) Update(reqChannel message.Channel) (error, message.Channel) {
-	return global.DB.Updates(&reqChannel).Error, reqChannel
+func (c *ChannelService) Update(channel message.Channel) (error, message.Channel) {
+	return global.DB.Updates(&channel).Error, channel
 }
 
 func (c *ChannelService) GetById(id snowflake.ID) (err error, mt message.Channel) {
 	err = global.DB.Where("id = ?", id).First(&mt).Error
 	return err, mt
+}
+
+func (c *ChannelService) Page(page request.PageInfo) (err error, list interface{}, total int64) {
+	db := global.DB.Model(&message.Channel{})
+	var channelList []message.Channel
+	err = db.Count(&total).Error
+	if total > 0 {
+		err = db.Limit(page.PageSize).Offset(page.Offset()).Find(&channelList).Error
+	}
+	return err, channelList, total
 }
