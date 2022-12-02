@@ -11,22 +11,19 @@ import (
 type ApplicationService struct {
 }
 
-func (c *ApplicationService) Create(app message.Application) (err error) {
+func (c *ApplicationService) Create(app message.Application) error {
 	app.ID = utils.Id()
 	// 状态，1、正常 2、禁用
 	app.Status = 1
-	err = global.DB.Create(&app).Error
-	return err
+	return global.DB.Create(&app).Error
 }
 
-func (c *ApplicationService) Delete(idsReq request.IdsReq) (err error) {
-	err = global.DB.Delete(&[]message.Channel{}, "id in ?", idsReq.Ids).Error
-	return err
+func (c *ApplicationService) Delete(idsReq request.IdsReq) error {
+	return global.DB.Delete(&[]message.Channel{}, "id in ?", idsReq.Ids).Error
 }
 
 func (c *ApplicationService) Update(app message.Application) (error, message.Application) {
-	err := global.DB.Updates(&app).Error
-	return err, app
+	return global.DB.Updates(&app).Error, app
 }
 
 func (c *ApplicationService) GetById(id snowflake.ID) (err error, mt message.Application) {

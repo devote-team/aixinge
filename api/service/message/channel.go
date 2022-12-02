@@ -11,22 +11,19 @@ import (
 type ChannelService struct {
 }
 
-func (c *ChannelService) Create(channel message.Channel) (err error) {
+func (c *ChannelService) Create(channel message.Channel) error {
 	channel.ID = utils.Id()
 	// 状态，1、正常 2、禁用
 	channel.Status = 1
-	err = global.DB.Create(&channel).Error
-	return err
+	return global.DB.Create(&channel).Error
 }
 
-func (c *ChannelService) Delete(idsReq request.IdsReq) (err error) {
-	err = global.DB.Delete(&[]message.Channel{}, "id in ?", idsReq.Ids).Error
-	return err
+func (c *ChannelService) Delete(idsReq request.IdsReq) error {
+	return global.DB.Delete(&[]message.Channel{}, "id in ?", idsReq.Ids).Error
 }
 
 func (c *ChannelService) Update(reqChannel message.Channel) (error, message.Channel) {
-	err := global.DB.Updates(&reqChannel).Error
-	return err, reqChannel
+	return global.DB.Updates(&reqChannel).Error, reqChannel
 }
 
 func (c *ChannelService) GetById(id snowflake.ID) (err error, mt message.Channel) {

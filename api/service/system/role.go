@@ -14,21 +14,18 @@ import (
 
 type RoleService struct{}
 
-func (t *RoleService) Create(role system.Role) (err error) {
+func (t *RoleService) Create(role system.Role) error {
 	role.ID = utils.Id()
 	role.Status = 1
-	err = global.DB.Create(&role).Error
-	return err
+	return global.DB.Create(&role).Error
 }
 
-func (t *RoleService) Delete(idsReq request.IdsReq) (err error) {
-	err = global.DB.Delete(&[]system.Role{}, "id in ?", idsReq.Ids).Error
-	return err
+func (t *RoleService) Delete(idsReq request.IdsReq) error {
+	return global.DB.Delete(&[]system.Role{}, "id in ?", idsReq.Ids).Error
 }
 
-func (t *RoleService) Update(reqRole system.Role) (err error, role system.Role) {
-	err = global.DB.Updates(&reqRole).Error
-	return err, reqRole
+func (t *RoleService) Update(role system.Role) (error, system.Role) {
+	return global.DB.Updates(&role).Error, role
 }
 
 func (t *RoleService) AssignUser(params systemReq.RoleUserParams) (err error) {

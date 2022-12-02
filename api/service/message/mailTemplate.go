@@ -11,22 +11,19 @@ import (
 type MailTemplateService struct {
 }
 
-func (c *MailTemplateService) Create(app message.MailTemplate) (err error) {
+func (c *MailTemplateService) Create(app message.MailTemplate) error {
 	app.ID = utils.Id()
 	// 状态，1、正常 2、禁用
 	app.Status = 1
-	err = global.DB.Create(&app).Error
-	return err
+	return global.DB.Create(&app).Error
 }
 
-func (c *MailTemplateService) Delete(idsReq request.IdsReq) (err error) {
-	err = global.DB.Delete(&[]message.MailTemplate{}, "id in ?", idsReq.Ids).Error
-	return err
+func (c *MailTemplateService) Delete(idsReq request.IdsReq) error {
+	return global.DB.Delete(&[]message.MailTemplate{}, "id in ?", idsReq.Ids).Error
 }
 
-func (c *MailTemplateService) Update(reqMt message.MailTemplate) (err error, mt message.MailTemplate) {
-	err = global.DB.Updates(&reqMt).Error
-	return err, reqMt
+func (c *MailTemplateService) Update(mt message.MailTemplate) (error, message.MailTemplate) {
+	return global.DB.Updates(&mt).Error, mt
 }
 
 func (c *MailTemplateService) GetById(id snowflake.ID) (err error, mt message.MailTemplate) {

@@ -15,11 +15,11 @@ import (
 
 type UserService struct{}
 
-func (b *UserService) Create(uc systemReq.UserCreate) (err error, userInter system.User) {
+func (b *UserService) Create(uc systemReq.UserCreate) (error, system.User) {
 	var user system.User
 	if !errors.Is(global.DB.Where("username = ?", uc.Username).First(&user).Error, gorm.ErrRecordNotFound) {
 		// 判断用户名是否注册
-		return errors.New("用户名已注册"), userInter
+		return errors.New("用户名已注册"), user
 	}
 	var u system.User
 	u.ID = utils.Id()
@@ -28,18 +28,15 @@ func (b *UserService) Create(uc systemReq.UserCreate) (err error, userInter syst
 	u.Password = utils.GetByteMd5([]byte(uc.Password + u.UUID.String()))
 	u.NickName = uc.NickName
 	u.Status = 1
-	err = global.DB.Create(&u).Error
-	return err, u
+	return global.DB.Create(&u).Error, u
 }
 
-func (b *UserService) Delete(idsReq request.IdsReq) (err error) {
-	err = global.DB.Delete(&[]system.User{}, "id in ?", idsReq.Ids).Error
-	return err
+func (b *UserService) Delete(idsReq request.IdsReq) error {
+	return global.DB.Delete(&[]system.User{}, "id in ?", idsReq.Ids).Error
 }
 
-func (b *UserService) Update(reqUser system.User) (err error, user system.User) {
-	err = global.DB.Updates(&reqUser).Error
-	return err, reqUser
+func (b *UserService) Update(user system.User) (error, system.User) {
+	return global.DB.Updates(&user).Error, user
 }
 
 func (b *UserService) Login(u *system.User) (err error, userInter *system.User) {

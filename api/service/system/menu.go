@@ -13,7 +13,7 @@ import (
 type MenuService struct {
 }
 
-func (c *MenuService) Create(menu system.Menu) (err error) {
+func (c *MenuService) Create(menu system.Menu) error {
 	menu.ID = utils.Id()
 	// 状态，1、正常 2、禁用
 	menu.Status = 1
@@ -21,22 +21,19 @@ func (c *MenuService) Create(menu system.Menu) (err error) {
 		// 设置父类为 1
 		menu.ParentId = 1
 	}
-	err = global.DB.Create(&menu).Error
-	return err
+	return global.DB.Create(&menu).Error
 }
 
-func (c *MenuService) Delete(idsReq request.IdsReq) (err error) {
-	err = global.DB.Delete(&[]system.Menu{}, "id in ?", idsReq.Ids).Error
-	return err
+func (c *MenuService) Delete(idsReq request.IdsReq) error {
+	return global.DB.Delete(&[]system.Menu{}, "id in ?", idsReq.Ids).Error
 }
 
-func (c *MenuService) Update(reqMenu system.Menu) (err error, menu system.Menu) {
-	if reqMenu.ParentId < 2 {
+func (c *MenuService) Update(menu system.Menu) (error, system.Menu) {
+	if menu.ParentId < 2 {
 		// 设置父类为 1
-		reqMenu.ParentId = 1
+		menu.ParentId = 1
 	}
-	err = global.DB.Updates(&reqMenu).Error
-	return err, reqMenu
+	return global.DB.Updates(&menu).Error, menu
 }
 
 func (c *MenuService) GetById(id snowflake.ID) (err error, menu system.Menu) {
