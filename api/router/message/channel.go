@@ -9,7 +9,7 @@ type ChannelRouter struct {
 }
 
 func (c *ChannelRouter) InitChannelRouter(router fiber.Router) {
-	channelRouter := router.Group("channel-template")
+	channelRouter := router.Group("channel")
 	var channelApi = v1.AppApi.MessageApi.Channel
 	{
 		channelRouter.Post("create", channelApi.Create) // 创建
