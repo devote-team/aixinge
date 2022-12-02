@@ -8,7 +8,7 @@ import (
 type MenuRouter struct {
 }
 
-func (s *MenuRouter) InitMenuRouter(router fiber.Router) (R fiber.Router) {
+func (s *MenuRouter) InitMenuRouter(router fiber.Router) {
 	menuRouter := router.Group("menu")
 	var menuApi = v1.AppApi.SystemApi.Menu
 	{
@@ -21,5 +21,4 @@ func (s *MenuRouter) InitMenuRouter(router fiber.Router) (R fiber.Router) {
 		menuRouter.Post("list", menuApi.List)          // 列表
 		menuRouter.Post("list-tree", menuApi.ListTree) // 列表树
 	}
-	return menuRouter
 }

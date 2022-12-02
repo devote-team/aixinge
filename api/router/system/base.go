@@ -8,7 +8,7 @@ import (
 type BaseRouter struct {
 }
 
-func (s *BaseRouter) InitBaseRouter(router fiber.Router) (R fiber.Router) {
+func (s *BaseRouter) InitBaseRouter(router fiber.Router) fiber.Router {
 	var userApi = v1.AppApi.SystemApi.User
 	{
 		router.Post("login", userApi.Login)

@@ -67,9 +67,10 @@ func Routers() *fiber.App {
 		systemRouter.InitMenuRouter(privateGroup) // 菜单
 
 		/** 应用基础 */
-		messageRouter.InitApplicationRouter(privateGroup)  // 应用
-		messageRouter.InitChannelRouter(privateGroup)      // 消息渠道
-		messageRouter.InitMailTemplateRouter(privateGroup) // 邮件模板
+		messageRouter.InitApplicationRouter(privateGroup)     // 应用
+		messageRouter.InitChannelRouter(privateGroup)         // 消息渠道
+		messageRouter.InitChannelTemplateRouter(privateGroup) // 渠道模板
+		messageRouter.InitMailTemplateRouter(privateGroup)    // 邮件模板
 	}
 
 	global.LOG.Debug("register filesystem handler")

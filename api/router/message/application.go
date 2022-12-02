@@ -8,11 +8,10 @@ import (
 type ApplicationRouter struct {
 }
 
-func (s *ApplicationRouter) InitApplicationRouter(router fiber.Router) (R fiber.Router) {
+func (a *ApplicationRouter) InitApplicationRouter(router fiber.Router) {
 	appRouter := router.Group("app")
 	var appApi = v1.AppApi.MessageApi.Application
 	{
 		appRouter.Post("create", appApi.Create) // 创建
 	}
-	return appRouter
 }

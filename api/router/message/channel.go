@@ -8,8 +8,8 @@ import (
 type ChannelRouter struct {
 }
 
-func (c *ChannelRouter) InitChannelRouter(router fiber.Router) (R fiber.Router) {
-	channelRouter := router.Group("channel")
+func (c *ChannelRouter) InitChannelRouter(router fiber.Router) {
+	channelRouter := router.Group("channel-template")
 	var channelApi = v1.AppApi.MessageApi.Channel
 	{
 		channelRouter.Post("create", channelApi.Create) // 创建
@@ -18,5 +18,4 @@ func (c *ChannelRouter) InitChannelRouter(router fiber.Router) (R fiber.Router) 
 		channelRouter.Post("get", channelApi.Get)       // 根据id获取邮件模板
 		channelRouter.Post("page", channelApi.Page)     // 分页
 	}
-	return channelRouter
 }

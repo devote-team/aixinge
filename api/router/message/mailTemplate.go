@@ -8,7 +8,7 @@ import (
 type MailTemplateRouter struct {
 }
 
-func (s *MailTemplateRouter) InitMailTemplateRouter(router fiber.Router) (R fiber.Router) {
+func (m *MailTemplateRouter) InitMailTemplateRouter(router fiber.Router) {
 	mtRouter := router.Group("mail-template")
 	var mtApi = v1.AppApi.MessageApi.MailTemplate
 	{
@@ -18,5 +18,4 @@ func (s *MailTemplateRouter) InitMailTemplateRouter(router fiber.Router) (R fibe
 		mtRouter.Post("get", mtApi.Get)       // 根据id获取邮件模板
 		mtRouter.Post("page", mtApi.Page)     // 分页
 	}
-	return mtRouter
 }

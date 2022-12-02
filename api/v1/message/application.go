@@ -22,7 +22,7 @@ type Application struct {
 // @Produce application/json
 // @Param data body message.Application true "创建应用"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"应用创建成功"}"
-// @Router /v1/application/create [post]
+// @Router /v1/app/create [post]
 func (b *Application) Create(c *fiber.Ctx) error {
 	var app message.Application
 	_ = c.BodyParser(&app)
@@ -42,7 +42,7 @@ func (b *Application) Create(c *fiber.Ctx) error {
 // @Produce application/json
 // @Param data body request.IdsReq true "ID集合"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
-// @Router /v1/application/delete [post]
+// @Router /v1/app/delete [post]
 func (b *Application) Delete(c *fiber.Ctx) error {
 	var idsReq request.IdsReq
 	_ = c.BodyParser(&idsReq)
@@ -65,7 +65,7 @@ func (b *Application) Delete(c *fiber.Ctx) error {
 // @Produce application/json
 // @Param data body message.Application true "应用信息"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
-// @Router /v1/application/update [post]
+// @Router /v1/app/update [post]
 func (b *Application) Update(c *fiber.Ctx) error {
 	var app message.Application
 	_ = c.BodyParser(&app)
@@ -90,7 +90,7 @@ func (b *Application) Update(c *fiber.Ctx) error {
 // @Produce application/json
 // @Param data body request.GetById true "应用ID"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /v1/application/get [post]
+// @Router /v1/app/get [post]
 func (b *Application) Get(c *fiber.Ctx) error {
 	var idInfo request.GetById
 	_ = c.BodyParser(&idInfo)

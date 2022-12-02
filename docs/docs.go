@@ -16,7 +16,7 @@ const docTemplate_swagger = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/v1/application/create": {
+        "/v1/app/create": {
             "post": {
                 "security": [
                     {
@@ -54,7 +54,7 @@ const docTemplate_swagger = `{
                 }
             }
         },
-        "/v1/application/delete": {
+        "/v1/app/delete": {
             "post": {
                 "security": [
                     {
@@ -92,7 +92,7 @@ const docTemplate_swagger = `{
                 }
             }
         },
-        "/v1/application/get": {
+        "/v1/app/get": {
             "post": {
                 "security": [
                     {
@@ -130,7 +130,7 @@ const docTemplate_swagger = `{
                 }
             }
         },
-        "/v1/application/update": {
+        "/v1/app/update": {
             "post": {
                 "security": [
                     {
@@ -161,6 +161,82 @@ const docTemplate_swagger = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/channel-template/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ChannelTemplate"
+                ],
+                "summary": "创建渠道模板",
+                "parameters": [
+                    {
+                        "description": "创建渠道模板",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/message.ChannelTemplate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"渠道模板创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/channel-template/delete": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ChannelTemplate"
+                ],
+                "summary": "删除渠道模板",
+                "parameters": [
+                    {
+                        "description": "ID集合",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -1731,6 +1807,27 @@ const docTemplate_swagger = `{
         "message.ChannelConfig": {
             "type": "object",
             "additionalProperties": true
+        },
+        "message.ChannelTemplate": {
+            "type": "object",
+            "properties": {
+                "channelId": {
+                    "description": "渠道ID",
+                    "type": "string"
+                },
+                "default": {
+                    "description": "默认渠道 1、是 2、否",
+                    "type": "integer"
+                },
+                "templateId": {
+                    "description": "模板ID",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "消息类型(枚举)",
+                    "type": "integer"
+                }
+            }
         },
         "message.MailTemplate": {
             "type": "object",
