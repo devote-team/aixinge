@@ -65,6 +65,7 @@ func Routers() *fiber.App {
 		systemRouter.InitUserRouter(privateGroup) // 用户
 		systemRouter.InitRoleRouter(privateGroup) // 角色
 		systemRouter.InitMenuRouter(privateGroup) // 菜单
+		systemRouter.InitFileRouter(privateGroup) // 文件
 
 		/** 应用基础 */
 		messageRouter.InitApplicationRouter(privateGroup)     // 应用
