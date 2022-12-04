@@ -26,7 +26,7 @@ func (b *UserService) Create(uc systemReq.UserCreate) (error, system.User) {
 	u.UUID = uuid.NewV4()
 	u.Username = uc.Username
 	u.Password = utils.GetByteMd5([]byte(uc.Password + u.UUID.String()))
-	u.NickName = uc.NickName
+	u.Nickname = uc.Nickname
 	u.Status = 1
 	return global.DB.Create(&u).Error, u
 }
@@ -110,10 +110,19 @@ func (b *UserService) GetById(id snowflake.ID) (err error, user system.User) {
 	return err, user
 }
 
-func (b *UserService) Page(info request.PageInfo) (err error, list interface{}, total int64) {
+func (b *UserService) Page(info systemReq.UserPageParams) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	db := global.DB.Model(&system.User{})
+
+	if info.Username != "" {
+		db.Where("username like ?", "%"+info.Username+"%")
+	}
+
+	if info.Status != 0 {
+		db.Where("status = ?", info.Status)
+	}
+
 	var userList []system.User
 	err = db.Count(&total).Error
 	err = db.Limit(limit).Offset(offset).Find(&userList).Error

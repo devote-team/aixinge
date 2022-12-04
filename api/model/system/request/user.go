@@ -1,11 +1,14 @@
 package request
 
-import "aixinge/utils/snowflake"
+import (
+	"aixinge/api/model/common/request"
+	"aixinge/utils/snowflake"
+)
 
 type UserCreate struct {
-	Username string `json:"userName"` // 用户登录名
+	Username string `json:"username"` // 用户登录名
 	Password string `json:"password"` // 用户登录密码
-	NickName string `json:"nickName"` // 用户昵称
+	Nickname string `json:"nickname"` // 用户昵称
 }
 
 type Login struct {
@@ -27,4 +30,10 @@ type ChangePasswordStruct struct {
 type UserRoleParams struct {
 	ID      snowflake.ID   `json:"id,omitempty" swaggertype:"string"`  // 用户ID
 	RoleIds []snowflake.ID `json:"roleIds" swaggertype:"array,string"` // 角色ID集合
+}
+
+type UserPageParams struct {
+	request.PageInfo
+	Username string `json:"username"`
+	Status   int    `json:"status,string,int"`
 }

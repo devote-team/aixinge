@@ -10,7 +10,7 @@ type TokenClaims struct {
 	UUID     uuid.UUID
 	ID       snowflake.ID
 	Username string
-	NickName string
+	Nickname string
 	jwt.RegisteredClaims
 }
 

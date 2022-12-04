@@ -49,7 +49,7 @@ func (b *User) tokenNext(c *fiber.Ctx, user system.User) error {
 	claims := systemReq.TokenClaims{
 		UUID:     user.UUID,
 		ID:       user.ID,
-		NickName: user.NickName,
+		Nickname: user.Nickname,
 		Username: user.Username,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(expiresTime) * time.Minute)), // 过期时间 30分钟 配置文件
@@ -272,7 +272,7 @@ func (b *User) Get(c *fiber.Ctx) error {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /v1/user/page [post]
 func (b *User) Page(c *fiber.Ctx) error {
-	var pageInfo request.PageInfo
+	var pageInfo systemReq.UserPageParams
 	_ = c.BodyParser(&pageInfo)
 	if err := validation.Verify(pageInfo, validation.PageInfo); err != nil {
 		return response.FailWithMessage(err.Error(), c)
