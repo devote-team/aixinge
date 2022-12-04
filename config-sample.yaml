@@ -16,6 +16,8 @@ database:
 jwt:
   signing-key: jCyJhbGciOi7ruWCOt29eJIUzI
   expires-time: 30
+upload:
+  path: ./upload
 zap:
   level: info
   format: console

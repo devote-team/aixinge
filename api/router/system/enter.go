@@ -5,4 +5,5 @@ type RouterGroup struct {
 	MenuRouter
 	UserRouter
 	RoleRouter
+	FilesRouter
 }

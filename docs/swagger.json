@@ -426,6 +426,75 @@
                 }
             }
         },
+        "/v1/file/download": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "File"
+                ],
+                "summary": "文件下载",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "主键",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/v1/file/upload": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "File"
+                ],
+                "summary": "文件上传",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "上传文件",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/login": {
             "post": {
                 "consumes": [
@@ -452,44 +521,6 @@
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"登陆成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/mail-log/create": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "MailLog"
-                ],
-                "summary": "创建邮件日志",
-                "parameters": [
-                    {
-                        "description": "创建邮件日志",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/message.MailLog"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"邮件日志创建成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -1932,79 +1963,6 @@
                 "type": {
                     "description": "消息类型(枚举)",
                     "type": "integer"
-                }
-            }
-        },
-        "message.MailLog": {
-            "type": "object",
-            "properties": {
-                "appId": {
-                    "description": "应用 ID",
-                    "type": "string"
-                },
-                "attachments": {
-                    "description": "附件JSON",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/common.Attachment"
-                    }
-                },
-                "bcc": {
-                    "description": "密送地址集合",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "cc": {
-                    "description": "抄送地址集合",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "content": {
-                    "description": "邮件具体内容",
-                    "type": "string"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "errMsg": {
-                    "description": "错误日志",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "string"
-                },
-                "parameters": {
-                    "description": "邮件参数",
-                    "type": "string"
-                },
-                "requestId": {
-                    "description": "唯一请求 ID",
-                    "type": "string"
-                },
-                "status": {
-                    "description": "状态 1、正常 2、异常",
-                    "type": "integer"
-                },
-                "templateId": {
-                    "description": "邮件模板 ID",
-                    "type": "string"
-                },
-                "to": {
-                    "description": "发件地址集合",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
                 }
             }
         },
