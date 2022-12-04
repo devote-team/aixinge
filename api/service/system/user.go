@@ -96,6 +96,8 @@ func (b *UserService) SelectedRoles(id snowflake.ID) (err error, list interface{
 		for i := range userRoleList {
 			roleIds = append(roleIds, userRoleList[i].RoleId)
 		}
+	} else {
+		roleIds = make([]snowflake.ID, 0)
 	}
 	return err, roleIds
 }
