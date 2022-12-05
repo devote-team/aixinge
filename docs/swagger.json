@@ -6,7 +6,6 @@
         "contact": {},
         "version": "1.0.0"
     },
-    "basePath": "/",
     "paths": {
         "/v1/app/create": {
             "post": {
@@ -454,7 +453,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "OK"
                     }
                 }
             }
@@ -2131,7 +2130,7 @@
         "request.UserCreate": {
             "type": "object",
             "properties": {
-                "nickName": {
+                "nickname": {
                     "description": "用户昵称",
                     "type": "string"
                 },
@@ -2139,7 +2138,7 @@
                     "description": "用户登录密码",
                     "type": "string"
                 },
-                "userName": {
+                "username": {
                     "description": "用户登录名",
                     "type": "string"
                 }
@@ -2271,7 +2270,7 @@
             "type": "object",
             "properties": {
                 "avatar": {
-                    "description": "用户头像",
+                    "description": "用户头像˚",
                     "type": "string"
                 },
                 "createdAt": {
@@ -2282,7 +2281,7 @@
                     "description": "主键ID",
                     "type": "string"
                 },
-                "nickName": {
+                "nickname": {
                     "description": "用户昵称",
                     "type": "string"
                 },
@@ -2294,7 +2293,7 @@
                     "description": "更新时间",
                     "type": "string"
                 },
-                "userName": {
+                "username": {
                     "description": "用户登录名",
                     "type": "string"
                 },

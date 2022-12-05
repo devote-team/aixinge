@@ -1,4 +1,3 @@
-basePath: /
 definitions:
   common.Attachment:
     properties:
@@ -202,13 +201,13 @@ definitions:
     type: object
   request.UserCreate:
     properties:
-      nickName:
+      nickname:
         description: 用户昵称
         type: string
       password:
         description: 用户登录密码
         type: string
-      userName:
+      username:
         description: 用户登录名
         type: string
     type: object
@@ -304,7 +303,7 @@ definitions:
   system.User:
     properties:
       avatar:
-        description: 用户头像
+        description: 用户头像˚
         type: string
       createdAt:
         description: 创建时间
@@ -312,7 +311,7 @@ definitions:
       id:
         description: 主键ID
         type: string
-      nickName:
+      nickname:
         description: 用户昵称
         type: string
       status:
@@ -321,7 +320,7 @@ definitions:
       updatedAt:
         description: 更新时间
         type: string
-      userName:
+      username:
         description: 用户登录名
         type: string
       uuid:
@@ -601,7 +600,7 @@ paths:
       - application/octet-stream
       responses:
         "200":
-          description: ""
+          description: OK
       security:
       - ApiKeyAuth: []
       summary: 文件下载
