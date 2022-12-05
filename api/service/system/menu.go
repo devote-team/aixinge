@@ -73,7 +73,7 @@ func (c *MenuService) AuthList(customClaims *systemReq.TokenClaims) (err error, 
 func (c *MenuService) ListTree() (error, []*systemRes.MenuTreeResponse) {
 	db := global.DB.Model(&system.Menu{})
 	var menuList []system.Menu
-	_ = db.Order("sort DESC").Find(&menuList).Error
+	_ = db.Order("sort ASC").Find(&menuList).Error
 	return GetMenuTree(menuList, 0)
 }
 
