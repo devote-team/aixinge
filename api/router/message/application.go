@@ -16,5 +16,6 @@ func (a *ApplicationRouter) InitApplicationRouter(router fiber.Router) {
 		appRouter.Post("delete", appApi.Delete) // 删除应用
 		appRouter.Post("update", appApi.Update) // 更新应用信息
 		appRouter.Post("get", appApi.Update)    // 根据id获取应用
+		appRouter.Post("page", appApi.Page)     // 分页
 	}
 }
