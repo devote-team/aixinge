@@ -70,8 +70,15 @@ func (c *MenuService) AuthList(customClaims *systemReq.TokenClaims) (err error, 
 	return err, menuList
 }
 
-func (c *MenuService) ListTree() (error, []*systemRes.MenuTreeResponse) {
+func (c *MenuService) ListTree(info systemReq.MenuPageParams) (error, []*systemRes.MenuTreeResponse) {
 	db := global.DB.Model(&system.Menu{})
+	if info.Title != "" {
+		db.Where("title like ?", "%"+info.Title+"%")
+	}
+
+	if info.Status != 0 {
+		db.Where("status = ?", info.Status)
+	}
 	var menuList []system.Menu
 	_ = db.Order("sort ASC").Find(&menuList).Error
 	return GetMenuTree(menuList, 0)

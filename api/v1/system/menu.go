@@ -180,7 +180,9 @@ func (b *Menu) Auth(c *fiber.Ctx) error {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /v1/menu/list-tree [post]
 func (b *Menu) ListTree(c *fiber.Ctx) error {
-	if err, listTree := menuService.ListTree(); err != nil {
+	var pageInfo systemReq.MenuPageParams
+	_ = c.BodyParser(&pageInfo)
+	if err, listTree := menuService.ListTree(pageInfo); err != nil {
 		global.LOG.Error("获取失败!", zap.Any("err", err))
 		return response.FailWithMessage("获取失败", c)
 	} else {

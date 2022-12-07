@@ -1,6 +1,7 @@
 package request
 
 import (
+	"aixinge/api/model/common/request"
 	"aixinge/api/model/system"
 	"aixinge/global"
 )
@@ -28,4 +29,10 @@ func DefaultMenu() []system.BaseMenu {
 
 type MenuParams struct {
 	Name string `json:"name"` // 菜单名称
+}
+
+type MenuPageParams struct {
+	request.PageInfo
+	Title  string `json:"title"`
+	Status int    `json:"status,string,int"`
 }
